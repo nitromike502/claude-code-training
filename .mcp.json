@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "fetch": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "/home/mcp/fetch/dist/index.js"
+      ],
+      "env": {}
+    }
+  }
+}

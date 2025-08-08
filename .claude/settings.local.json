@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ddev describe:*)",
+      "Bash(ddev status:*)",
+      "Bash(ddev stop:*)",
+      "Bash(ddev artisan migrate:*)",
+      "mcp__playwright__playwright_navigate",
+      "mcp__playwright__playwright_get_visible_text",
+      "Bash(ddev ssh:*)",
+      "Bash(ddev exec:*)",
+      "Bash(ddev restart:*)",
+      "Bash(ddev start-dev:*)",
+      "mcp__playwright__playwright_get_visible_html",
+      "Bash(git add:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "enabledMcpjsonServers": [
+    "fetch"
+  ]
+}

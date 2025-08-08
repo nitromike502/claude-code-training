@@ -1,0 +1,69 @@
+# Dependency directories
+node_modules/
+vendor/
+
+# Compiled assets and build outputs
+/public/hot
+/public/storage
+/public/build
+/public/js/
+/public/css/
+/public/mix-manifest.json
+/dist/
+/build/
+
+# Laravel specific
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# DDEV specific (keeping config but excluding dynamic files)
+.ddev/.homeadditions/
+.ddev/.global_commands/
+.ddev/db_snapshots/
+.ddev/.webimageBuild/
+
+# Laravel Vue E-commerce specific
+examples/laravel-vue-ecommerce/.env
+examples/laravel-vue-ecommerce/vendor/
+examples/laravel-vue-ecommerce/node_modules/
+examples/laravel-vue-ecommerce/backend/node_modules/
+examples/laravel-vue-ecommerce/backend/dist/
+examples/laravel-vue-ecommerce/public/storage
+examples/laravel-vue-ecommerce/storage/app/
+examples/laravel-vue-ecommerce/storage/framework/
+examples/laravel-vue-ecommerce/storage/logs/
+
+# Keep empty directories with .gitkeep
+!.gitkeep

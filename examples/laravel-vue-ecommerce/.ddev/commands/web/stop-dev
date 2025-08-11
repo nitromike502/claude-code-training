@@ -1,0 +1,9 @@
+#!/bin/bash
+
+## Description: Stop Laravel and Vue.js development servers
+## Usage: stop-dev
+## Example: "ddev stop-dev"
+
+echo "Stopping development servers..."
+pkill -f "vite\|npm run dev" || echo "No development servers found running"
+echo "Development servers stopped!"

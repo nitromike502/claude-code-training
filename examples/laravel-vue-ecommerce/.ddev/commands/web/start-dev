@@ -1,0 +1,37 @@
+#!/bin/bash
+
+## Description: Start Laravel and Vue.js development servers
+## Usage: start-dev
+## Example: "ddev start-dev"
+
+# Kill any existing dev servers
+pkill -f 'vite\|npm' 2>/dev/null || true
+
+# Start Laravel Vite server in background
+echo "Starting Laravel Vite server on port 3001..."
+nohup npm run dev > /tmp/laravel-vite.log 2>&1 &
+LARAVEL_PID=$!
+
+# Start Vue.js admin panel Vite server in background  
+echo "Starting Vue.js admin panel Vite server on port 3000..."
+cd backend
+nohup npm run dev > /tmp/vue-admin-vite.log 2>&1 &
+ADMIN_PID=$!
+
+# Wait a moment for servers to start
+sleep 3
+
+echo "Development servers started!"
+echo "Laravel Vite PID: $LARAVEL_PID"
+echo "Vue.js Admin PID: $ADMIN_PID"
+echo ""
+echo "URLs:"
+echo "Laravel app: https://laravel-vue-ecommerce.ddev.site"
+echo "Laravel Vite: http://laravel-vue-ecommerce.ddev.site:3001"
+echo "Vue.js admin: http://laravel-vue-ecommerce.ddev.site:3000"
+echo ""
+echo "Logs:"
+echo "Laravel Vite: tail -f /tmp/laravel-vite.log"
+echo "Vue.js Admin: tail -f /tmp/vue-admin-vite.log"
+echo ""
+echo "To stop servers: ddev stop-dev"

@@ -12,7 +12,10 @@
       "Bash(ddev restart:*)",
       "Bash(ddev start-dev:*)",
       "mcp__playwright__playwright_get_visible_html",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git remote set-url:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

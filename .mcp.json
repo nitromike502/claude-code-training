@@ -7,6 +7,18 @@
         "/home/mcp/fetch/dist/index.js"
       ],
       "env": {}
+    },
+    "google-slides-mcp": {
+      "transportType": "stdio",
+      "command": "node",
+      "args": [
+        "/home/mcp/google-slides-mcp/build/index.js"
+      ],
+      "env": {
+        "GOOGLE_CLIENT_ID": "${GOOGLE_CLIENT_ID}",
+        "GOOGLE_CLIENT_SECRET": "${GOOGLE_CLIENT_SECRET}",
+        "GOOGLE_REFRESH_TOKEN": "${GOOGLE_REFRESH_TOKEN}"
+      }
     }
   }
 }

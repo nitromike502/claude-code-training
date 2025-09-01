@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Code Training - Session 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="presentation-header">
+        <h1>Session 1: What is Claude Code & Getting Started</h1>
+        <div class="session-info">
+            <span class="duration">Duration: 32-37 minutes</span>
+            <span class="progress-indicator">
+                Overall Progress: <span id="overall-progress">0%</span>
+            </span>
+        </div>
+    </header>
+
+    <main class="presentation-container">
+        <div class="accordion-container" id="accordion-container">
+            <!-- Accordion items will be generated dynamically -->
+        </div>
+
+        <div class="presentation-controls">
+            <button id="reset-all-progress" class="control-btn danger">Reset All Progress</button>
+            <button id="export-progress" class="control-btn secondary">Export Progress</button>
+            <div class="total-timer">
+                <span>Total Session Time: </span>
+                <span id="total-time-display">00:00</span>
+                <button id="start-total-timer" class="timer-btn">Start Session</button>
+                <button id="pause-total-timer" class="timer-btn">Pause</button>
+                <button id="reset-total-timer" class="timer-btn">Reset</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="presentation-footer">
+        <p>Claude Code Training Series - Interactive Presentation Tool</p>
+    </footer>
+
+    <!-- Load marked.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

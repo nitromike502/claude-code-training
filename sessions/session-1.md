@@ -1,8 +1,8 @@
 # Session 1: What is Claude Code & Getting Started
 
-**Length:** 35-40 minutes (expanded to include comprehensive setup)  
-**Goal:** Attendees will understand Claude Code's purpose and be able to successfully set up and start using it with their own projects.  
-**Core Concepts:** Overview, Project Setup, Getting Started, Core Features, Practical Applications
+**Length:** 32-37 minutes (focused on essentials with enterprise trust and security)  
+**Goal:** Attendees will understand Claude Code's purpose, feel confident about security/privacy, and be able to successfully set up and start using it with their own projects.  
+**Core Concepts:** Overview, Enterprise Trust, Project Setup, Interface Essentials, Core Features, Practical Applications
 
 ## Agenda
 
@@ -13,7 +13,28 @@ Start by acknowledging the common challenge: for non-developers, a project's cod
 - Explain Claude Code not as a "coding" tool, but as an **AI assistant that has read and understood the entire project.**
 - **Analogy:** It's like having a friendly junior developer sitting next to you, ready to answer questions, summarize complex parts, and write notes for you.
 
-### 3. (3 min) Project Setup Fundamentals
+### 3. (4 min) Enterprise Trust & Security
+Addressing the questions you're probably thinking: "Is this safe? What can it see? How does this work in our company?"
+
+#### What Claude Code Can See
+- **Project files only:** Claude reads files in your specified project folder - nothing else on your computer
+- **No personal access:** Cannot see your emails, personal documents, browser history, or other applications
+- **Read-only by default:** Won't modify any files unless you explicitly ask and confirm each change
+- **Your control:** Only analyzes what you choose, when you choose
+
+#### Data Security for Professional Use
+- **Enterprise-grade security:** Built by Anthropic with professional security standards
+- **No permanent storage:** Your code conversations aren't permanently stored on external servers
+- **Session-based privacy:** Each conversation is independent and temporary
+- **IT-friendly:** Most enterprise IT teams approve Claude Code for code analysis tasks
+
+#### What This Means for You
+- **Safe to explore:** You can ask questions and explore projects without risk
+- **Transparent process:** You see exactly what Claude analyzes and when
+- **Professional confidence:** Built for business use with appropriate security measures
+- **Team collaboration:** Safe to discuss projects and share insights with colleagues
+
+### 4. (3 min) Project Setup Fundamentals
 Let's get Claude Code working with your specific project - it's easier than you think!
 
 #### What Claude Code Needs to Work
@@ -34,7 +55,24 @@ Let's get Claude Code working with your specific project - it's easier than you 
 - **Check permissions:** Ensure you can open and read files in the project folder
 - **Have Claude Code installed:** Your IT team or developer should have provided access
 
-### 4. (8 min) Complete Setup Walkthrough
+#### Setting Realistic Expectations (2 min)
+**Claude Code Works Best With:**
+- Projects with clear structure and documentation
+- Code files in common languages (Python, JavaScript, PHP, Java, etc.)
+- Projects with README files, comments, or existing documentation
+- Well-organized folder structures with logical naming
+
+**May Need Patience With:**
+- Very large projects (10,000+ files) - first launch can take 1-2 minutes
+- Projects with unusual or proprietary frameworks - may need more specific questions
+- Legacy codebases with minimal documentation - still helpful, but requires more exploration
+
+**Timeline for Value:**
+- **Day 1:** Basic project understanding and navigation
+- **Week 1:** Comfortable asking questions and getting useful answers
+- **Month 1:** Integrated into your regular workflow for project insights and documentation
+
+### 5. (8 min) Complete Setup Walkthrough
 Step-by-step guide to connecting Claude Code with your project for the first time.
 
 #### Step 1: Navigate to Your Project (2 min)
@@ -118,94 +156,59 @@ Step-by-step guide to connecting Claude Code with your project for the first tim
 - **Normal behavior:** First run can take 30-60 seconds for big projects
 - **Be patient:** Subsequent runs will be much faster
 
-### 5. (7 min) Getting Started Essentials
-Now that Claude Code is connected to your project, let's learn how to use it effectively!
+### 6. (3 min) Claude Code Interface Essentials
+Quick tips to make your Claude Code experience smoother:
 
-#### CLI Basics: It's Just Like Having a Conversation
-- **What is CLI?** Think of it as texting with an AI assistant that knows your project
-- **No scary commands:** Just type `claude` and start asking questions in plain English
-- **Navigation:** Use arrow keys to recall previous questions (like message history)
-- **Analogy:** Like chatting with a knowledgeable coworker who's read all your project files
+#### Useful Claude Code Features
+- **Continue previous session:** `claude -c` (resume where you left off)
+- **Navigate your history:** Up/Down arrow keys to find previous questions
+- **Longer questions:** Use `\` + Enter for multi-line input or paste longer content
+- **Edit your last question:** Double-press Escape to modify what you just asked
+- **Just ask naturally:** No special syntax needed - talk to Claude like a colleague
 
-#### Advanced Starting Options
-- **Simple start:** `claude` (opens interactive mode)
-- **Quick question:** `claude "explain this project"` (ask and exit)
-- **Continue conversation:** `claude -c` (resume previous session)
-- **Choose model:** `claude --model sonnet` (select specific AI model)
+### 7. (4 min) What You Can Ask Claude Code
+Here's what you can do with Claude Code - we'll see these in action during our demo:
 
-#### Understanding Interactive Mode
-- **Conversational:** Ask follow-up questions naturally
-- **Memory:** Claude remembers your conversation within each session
-- **Multiline input:** Use `\` + Enter for longer questions or paste in content
-- **Quick shortcuts:** 
-  - Up/Down arrows: Browse previous questions
-  - `/help`: Get assistance anytime
-  - `Ctrl+L`: Clear screen but keep conversation
-  - Double-press Escape: Edit your previous message
-
-### 6. (8 min) Core Features You'll Use Daily
-Now that you're set up, here's what you can do with Claude Code every day.
-
-#### Built-in Slash Commands: Your Power Tools
+#### Built-in Commands (1 min)
 Commands that start with `/` give you special functionality:
-- **`/help`** - Get assistance anytime you're stuck
-- **`/config`** - Customize Claude's behavior for your needs
+- **`/help`** - Get assistance anytime
+- **`/config`** - Customize Claude's behavior  
 - **`/clear`** - Start fresh while keeping your session
-- **`/terminal-setup`** - Optimize your terminal experience
-- **Analogy:** Like right-clicking in Microsoft Word to access special menus
 
-#### Ask Questions in Plain English
-**Examples for non-technical users:**
+#### Example Questions You Can Ask (3 min)
+**Project Understanding:**
 - `"Give me an overview of this project"`
-- `"What does the user login process look like?"`
-- `"Explain this error message in simple terms"`
-- No special syntax needed - just ask naturally like you're talking to a colleague
-
-#### Understanding Project Structure
-**Examples:**
 - `"What are the key components of this application?"`
-- `"Show me the main data models"`
 - `"How is this project organized?"`
-- Perfect for getting oriented in a new project or understanding scope
 
-#### Documentation Support
-**Examples:**
-- `"Find functions that need better documentation"`
+**Documentation & Communication:**
 - `"Help me write a user guide for this feature"`
-- `"Summarize recent changes for a project update"`
-- Great for creating clear documentation that bridges technical and business teams
-
-#### Getting Context for Meetings
-**Examples:**
-- `"Summarize what changed in the authentication system"`
-- `"Explain the impact of these database changes"`
+- `"Explain this error message in simple terms"`
 - `"What should I know about this new feature for our demo?"`
-- Helps you stay informed and contribute meaningfully to technical discussions
 
-### 7. (5 min) Three Things You Can Do Today
+**Analysis & Planning:**
+- `"What user workflows should we document?"`
+- `"What are the main features customers interact with?"`
+- `"What areas of this project need clearer explanations?"`
 
-#### Thinking About Document Structure for Your Project
-**What Claude helps you consider:**
-- `"What documentation does this project need?"`
-- `"How should I organize our user guides and technical specs?"`
-- `"What's missing from our current documentation?"`
-- **Business value:** Ensures your project is accessible to all team members and stakeholders
+### 8. (3 min) Three Things You Can Do Today
 
-#### Keeping Documentation Current
-**Examples:**
-- `"Check if our API documentation matches the current code"`
-- `"Update the user guide to reflect recent changes"`
-- `"Flag outdated references in our project docs"`
-- **Business value:** Prevents confusion and reduces support requests
+#### Get Project Oriented (1 min)
+- `"Give me an overview of this project"`
+- `"What are the main user-facing features?"`
+- `"How is this application organized?"`
 
-#### Managing References Within Documents
-**Examples:**
-- `"Find all places where we mention the login process"`
-- `"Update links to moved files in our documentation"`
-- `"Ensure our troubleshooting guide references current error messages"`
-- **Business value:** Maintains accurate, trustworthy documentation
+#### Understand User Workflows (1 min)
+- `"Walk me through the user registration process"`
+- `"What happens when a customer places an order?"`
+- `"How do users reset their passwords?"`
 
-### 8. (2 min) Wrap-up & What's Next
+#### Plan Documentation Priorities (1 min)
+- `"What user workflows should we document first?"`
+- `"What parts of this system are most confusing for new users?"`
+- `"What areas need clearer explanations for stakeholders?"`
+
+### 9. (2 min) Wrap-up & What's Next
 Recap the key benefit: Claude Code makes projects transparent and accessible to everyone, while helping maintain high-quality documentation. In the next session, we'll dive deeper into project setup and initialization with real examples.
 
 ## Role-Specific Quick Wins

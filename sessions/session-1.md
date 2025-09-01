@@ -174,6 +174,12 @@ Commands that start with `/` give you special functionality:
 - **`/help`** - Get assistance anytime
 - **`/config`** - Customize Claude's behavior  
 - **`/clear`** - Start fresh while keeping your session
+- **`/doctor`** - Check your Claude Code setup and diagnose issues
+- **`/context`** - View or manage your current context and memory
+- **`/add-dir`** - Add additional directories to your project scope
+- **`/compact`** - Reduce conversation size by summarizing older messages
+- **`/resume`** - Continue a previous conversation session
+- **`/status`** - Show current session and project status information
 
 #### Example Questions You Can Ask (3 min)
 **Project Understanding:**

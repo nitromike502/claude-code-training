@@ -51,7 +51,7 @@ The `examples/laravel-vue-ecommerce/` directory contains a complete Laravel + Vu
 ## Working with This Repository
 
 ### Training Content Development
-When working on developing or improving the training materials, check the `development/` directory for research, insights, and guidelines. The `development/CLAUDE.md` file will automatically guide you to relevant documentation for your specific task.
+When working on developing or improving the training materials, check the `docs/` directory for research, insights, and guidelines. The `docs/CLAUDE.md` file will automatically guide you to relevant documentation for your specific task.
 
 ### Documentation Maintenance
 Since the main content is training materials, typical development commands (build, test, lint) are not applicable for the documentation. Focus on content review, editing, and ensuring the training materials remain current with Claude Code features.

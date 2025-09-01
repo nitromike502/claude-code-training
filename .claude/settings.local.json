@@ -29,7 +29,8 @@
       "Bash(curl:*)",
       "Bash(ddev logs:*)",
       "Bash(docker logs:*)",
-      "mcp__playwright__browser_console_messages"
+      "mcp__playwright__browser_console_messages",
+      "Bash(node:*)"
     ]
   },
   "enableAllProjectMcpServers": true,

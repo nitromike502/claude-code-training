@@ -23,9 +23,10 @@ The training materials use a **Laravel Vue.js E-commerce application** as the pr
 - **Full-stack complexity**: Demonstrates Claude Code's ability to work with both backend (Laravel/PHP) and frontend (Vue.js/JavaScript) code
 - **Real-world scenarios**: Practical examples for Project Managers, QA Testers, Technical Writers, and other non-technical roles
 
-### Recommended Example Repository
-- **Primary**: `thecodeholic/laravel-vue-ecommerce` - Full-stack Laravel + Vue.js e-commerce platform with educational focus
-- **Secondary**: `jasco-b/laravel-vue-todo` - Simple todo app for basic demonstrations
+### Integrated Demo Project
+- **Primary**: `examples/laravel-vue-ecommerce/` - Complete Laravel + Vue.js e-commerce platform with DDEV setup
+- **Ready-to-use**: Full development environment with database seeders and realistic demo data
+- **Alternative**: `example-projects.md` contains additional project options for different training scenarios
 
 ## Target Audience
 
@@ -55,9 +56,19 @@ Each session document includes:
 
 ## Getting Started
 
-1. **For Presenters**: Review each session document before delivery
-2. **For Setup**: Clone the recommended example project for live demonstrations
-3. **For Participants**: No preparation needed - sessions build progressively from basics
+### For Presenters
+1. **Review Content**: Study each session document before delivery
+2. **Setup Environment**: Use the integrated demo project (`examples/laravel-vue-ecommerce/`)
+3. **Launch Presentation System**: Run `npm start` in the `presentation/` directory for interactive session management
+
+### For Demo Environment Setup
+1. **Demo Project**: `cd examples/laravel-vue-ecommerce && ddev start && ddev start-dev`
+2. **Presentation Control**: `cd presentation && npm start`
+3. **Access URLs**: Demo at `https://laravel-vue-ecommerce.ddev.site`, Presentation control at `http://localhost:3001`
+
+### For Participants
+- No preparation needed - sessions build progressively from basics
+- Live demonstrations use the integrated e-commerce platform
 
 ## Training Philosophy
 

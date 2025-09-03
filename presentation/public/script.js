@@ -217,15 +217,28 @@ class PresentationApp {
 
 
     createContentSection(section) {
-        // Convert markdown content to HTML (basic conversion)
-        let htmlContent = section.content
-            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-            .replace(/\*(.*?)\*/g, '<em>$1</em>')
-            .replace(/^- (.*$)/gim, '<li>$1</li>')
-            .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
-            .replace(/\n\n/g, '</p><p>')
-            .replace(/^(?!<[uo]l)(.+)$/gm, '<p>$1</p>')
-            .replace(/<p><\/p>/g, '');
+        // Convert markdown content to HTML using marked.js
+        let htmlContent = '';
+        
+        if (typeof marked !== 'undefined') {
+            // Use proper markdown parser
+            htmlContent = marked.parse(section.content);
+        } else {
+            // Fallback to basic conversion with header support
+            htmlContent = section.content
+                .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/`(.*?)`/g, '<code>$1</code>')
+                .replace(/^- (.*$)/gim, '<li>$1</li>')
+                .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/^(?!<[huo])[^<](.*)$/gm, '<p>$1</p>')
+                .replace(/<p><\/p>/g, '');
+        }
 
         return `
             <div class="content-section">
@@ -300,11 +313,15 @@ class PresentationApp {
             header.classList.add('active');
             content.classList.add('active');
             
-            // Auto-scroll to the top of the opened accordion with smooth animation
+            // Auto-scroll to position the accordion just below the sticky header
             setTimeout(() => {
-                accordionItem.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const headerHeight = document.querySelector('.presentation-header').offsetHeight;
+                const accordionTop = accordionItem.getBoundingClientRect().top + window.pageYOffset;
+                const targetPosition = accordionTop - headerHeight - 10; // 10px padding below header
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
                 });
             }, 100); // Small delay to allow accordion animation to start
         }

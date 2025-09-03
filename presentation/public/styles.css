@@ -136,6 +136,28 @@ body {
     background: rgba(40, 167, 69, 0.8);
 }
 
+.section-type-badge {
+    background: #17a2b8;
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.section-type-badge.supplementary {
+    background: #fd7e14;
+}
+
+.accordion-header.active .section-type-badge {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.accordion-header.active .section-type-badge.supplementary {
+    background: rgba(253, 126, 20, 0.8);
+}
+
 .accordion-arrow {
     font-size: 1.2rem;
     transition: transform 0.3s ease;

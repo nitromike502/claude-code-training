@@ -38,17 +38,19 @@ class PresentationApp {
         const content = this.sessionData.content;
         const sections = [];
         
-        // Define the main agenda items with their time allocations
-        const agendaItems = [
-            { title: "Introduction: The \"Black Box\" Problem", time: 2, section: "1." },
-            { title: "What is Claude Code? Your Personal Project Translator", time: 3, section: "2." },
-            { title: "Enterprise Trust & Security", time: 4, section: "3." },
-            { title: "Project Setup Fundamentals", time: 3, section: "4." },
-            { title: "Complete Setup Walkthrough", time: 8, section: "5." },
-            { title: "Claude Code Interface Essentials", time: 3, section: "6." },
-            { title: "What You Can Ask Claude Code", time: 4, section: "7." },
-            { title: "Three Things You Can Do Today", time: 3, section: "8." },
-            { title: "Wrap-up & What's Next", time: 2, section: "9." }
+        // Define all sections - both main agenda items and supplementary sections
+        const allSections = [
+            { title: "Introduction: The \"Black Box\" Problem", time: 2, section: "1.", type: "agenda" },
+            { title: "What is Claude Code? Your Personal Project Translator", time: 3, section: "2.", type: "agenda" },
+            { title: "Enterprise Trust & Security", time: 4, section: "3.", type: "agenda" },
+            { title: "Project Setup Fundamentals", time: 3, section: "4.", type: "agenda" },
+            { title: "Complete Setup Walkthrough", time: 8, section: "5.", type: "agenda" },
+            { title: "Claude Code Interface Essentials", time: 3, section: "6.", type: "agenda" },
+            { title: "What You Can Ask Claude Code", time: 4, section: "7.", type: "agenda" },
+            { title: "Three Things You Can Do Today", time: 3, section: "8.", type: "agenda" },
+            { title: "Wrap-up & What's Next", time: 2, section: "9.", type: "agenda" },
+            { title: "Role-Specific Quick Wins", time: 5, section: "", type: "supplementary" },
+            { title: "Live Demo Setup", time: 10, section: "", type: "supplementary" }
         ];
 
         // Extract content for each section from the markdown
@@ -58,35 +60,47 @@ class PresentationApp {
         const processedSections = new Set(); // Track which sections we've already processed
 
         for (const line of lines) {
-            if (line.startsWith('### ')) {
-                // Save previous section if exists
-                if (currentSection && !processedSections.has(currentSection.title)) {
-                    sections.push({
-                        ...currentSection,
-                        content: sectionContent.trim(),
-                        completed: false // Add completion status
-                    });
-                    processedSections.add(currentSection.title);
-                }
-
+            // Check for both H2 (##) and H3 (###) headers
+            if (line.startsWith('### ') || line.startsWith('## ')) {
                 // Start new section
-                const headerText = line.substring(4).trim();
-                const agendaMatch = agendaItems.find(item => 
-                    headerText.includes(item.section) || 
-                    headerText.toLowerCase().includes(item.title.toLowerCase().split(':')[0])
-                );
+                const isH3 = line.startsWith('### ');
+                const headerText = line.substring(isH3 ? 4 : 3).trim();
+                
+                // Find matching section definition
+                const sectionMatch = allSections.find(item => {
+                    if (item.type === "agenda") {
+                        return headerText.includes(item.section) || 
+                               headerText.toLowerCase().includes(item.title.toLowerCase().split(':')[0]);
+                    } else {
+                        return headerText.toLowerCase() === item.title.toLowerCase();
+                    }
+                });
 
-                if (agendaMatch && !processedSections.has(agendaMatch.title)) {
+                // Only start a new section if we found a match for a main section
+                if (sectionMatch && !processedSections.has(sectionMatch.title)) {
+                    // Save previous section if exists
+                    if (currentSection && !processedSections.has(currentSection.title)) {
+                        sections.push({
+                            ...currentSection,
+                            content: sectionContent.trim(),
+                            completed: false // Add completion status
+                        });
+                        processedSections.add(currentSection.title);
+                    }
+
                     currentSection = {
                         id: sections.length + 1,
-                        title: agendaMatch.title,
-                        time: agendaMatch.time,
+                        title: sectionMatch.title,
+                        time: sectionMatch.time,
+                        type: sectionMatch.type,
                         content: '',
                         completed: false
                     };
                     sectionContent = '';
-                } else {
-                    currentSection = null; // Don't process duplicates or unmatched sections
+                } else if (currentSection) {
+                    // If we're in a section and this header doesn't match a main section,
+                    // treat it as content within the current section
+                    sectionContent += line + '\n';
                 }
             } else if (currentSection) {
                 sectionContent += line + '\n';
@@ -154,9 +168,10 @@ class PresentationApp {
         
         item.innerHTML = `
             <div class="accordion-header" data-section="${section.id}">
-                <div class="accordion-title">${section.id}. ${section.title}</div>
+                <div class="accordion-title">${section.type === 'agenda' ? section.id + '. ' : ''}${section.title}</div>
                 <div class="accordion-meta">
                     <span class="time-badge">${section.time} min</span>
+                    <span class="section-type-badge ${section.type}">${section.type === 'agenda' ? 'Agenda' : 'Supplementary'}</span>
                     <span class="completion-badge ${section.completed ? 'completed' : ''}">${section.completed ? '✓ Complete' : 'Pending'}</span>
                     <span class="accordion-arrow">▼</span>
                 </div>

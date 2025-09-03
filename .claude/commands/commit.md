@@ -18,8 +18,6 @@ Remember: This project follows Conventional Commits specification. Do NOT add co
 - **Verify before committing**: Ensure code is linted, builds correctly, and documentation is updated
 - **Atomic commits**: Each commit should contain related changes that serve a single purpose
 - **Split large changes**: If changes touch multiple concerns, split them into separate commits
-- **Commit message structure**: Follow AILA project format: `TICKET-123: Brief description of changes`
-- **Ticket number required**: Always include ticket number (AILASUP, AILACLE, etc.)
 - **Imperative mood**: Use imperative mood ("Fix", "Add", "Update" not "Fixed", "Added", "Updated")  
 - **Concise first line**: Keep the first line under 72 characters
 - **Reference functionality**: Focus on specific functionality, not implementation details
@@ -101,41 +99,40 @@ When analyzing the diff, consider splitting commits based on these criteria:
 
 ## Examples
 
-Good commit messages (AILA project format):
-- AILASUP-123: Add user authentication system
-- AILASUP-456: Fix memory leak in rendering process
-- AILACLE-789: Update API documentation with new endpoints
-- AILASUP-234: Refactor error handling logic in parser
-- AILACLE-567: Resolve linter warnings in component files
-- AILASUP-890: Improve developer tooling setup process
-- AILACLE-123: Implement business logic for transaction validation
-- AILASUP-456: Fix styling inconsistency in header
-- AILASUP-789: Patch critical security vulnerability in auth flow
-- AILACLE-234: Reorganize component structure for better readability
-- AILASUP-567: Remove deprecated legacy code
-- AILACLE-890: Add input validation for user registration form
-- AILASUP-123: Fix failing CI pipeline tests
-- AILACLE-456: Implement analytics tracking for user engagement
-- AILASUP-789: Strengthen authentication password requirements
-- AILACLE-234: Improve form accessibility for screen readers
+Good commit messages:
+- Add user authentication system
+- Fix memory leak in rendering process
+- Update API documentation with new endpoints
+- Refactor error handling logic in parser
+- Resolve linter warnings in component files
+- Improve developer tooling setup process
+- Implement business logic for transaction validation
+- Fix styling inconsistency in header
+- Patch critical security vulnerability in auth flow
+- Reorganize component structure for better readability
+- Remove deprecated legacy code
+- Add input validation for user registration form
+- Fix failing CI pipeline tests
+- Implement analytics tracking for user engagement
+- Strengthen authentication password requirements
+- Improve form accessibility for screen readers
 
-Example of splitting commits (AILA project format):
-- First commit: AILASUP-123: Add new version type definitions
-- Second commit: AILASUP-123: Update documentation for new versions
-- Third commit: AILASUP-123: Update package.json dependencies
-- Fourth commit: AILASUP-123: Add type definitions for new API endpoints
-- Fifth commit: AILASUP-123: Improve concurrency handling in worker threads
-- Sixth commit: AILASUP-123: Resolve linting issues in new code
-- Seventh commit: AILASUP-123: Add unit tests for new version features
-- Eighth commit: AILASUP-123: Update dependencies with security vulnerabilities
+Example of splitting commits:
+- First commit: Add new version type definitions
+- Second commit: Update documentation for new versions
+- Third commit: Update package.json dependencies
+- Fourth commit: Add type definitions for new API endpoints
+- Fifth commit: Improve concurrency handling in worker threads
+- Sixth commit: Resolve linting issues in new code
+- Seventh commit: Add unit tests for new version features
+- Eighth commit: Update dependencies with security vulnerabilities
 
 ## Command Options
 
 - `--no-verify`: Skip running the pre-commit checks (lint, build, etc.)
 
-## Additional Notes for AILA Project
+## Additional Notes for Project
 
 - Code style must pass PHP CodeSniffer checks (`composer cs-check`) before committing
-- Always specify plugin and connection when running database migrations
 - Use atomic commits that serve a single purpose
 - Focus commit messages on functionality changes, not technical implementation details

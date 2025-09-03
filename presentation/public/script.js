@@ -55,16 +55,18 @@ class PresentationApp {
         const lines = content.split('\n');
         let currentSection = null;
         let sectionContent = '';
+        const processedSections = new Set(); // Track which sections we've already processed
 
         for (const line of lines) {
             if (line.startsWith('### ')) {
                 // Save previous section if exists
-                if (currentSection) {
+                if (currentSection && !processedSections.has(currentSection.title)) {
                     sections.push({
                         ...currentSection,
                         content: sectionContent.trim(),
-                        subtasks: this.extractSubtasks(sectionContent)
+                        completed: false // Add completion status
                     });
+                    processedSections.add(currentSection.title);
                 }
 
                 // Start new section
@@ -74,15 +76,17 @@ class PresentationApp {
                     headerText.toLowerCase().includes(item.title.toLowerCase().split(':')[0])
                 );
 
-                if (agendaMatch) {
+                if (agendaMatch && !processedSections.has(agendaMatch.title)) {
                     currentSection = {
                         id: sections.length + 1,
                         title: agendaMatch.title,
                         time: agendaMatch.time,
                         content: '',
-                        subtasks: []
+                        completed: false
                     };
                     sectionContent = '';
+                } else {
+                    currentSection = null; // Don't process duplicates or unmatched sections
                 }
             } else if (currentSection) {
                 sectionContent += line + '\n';
@@ -90,11 +94,11 @@ class PresentationApp {
         }
 
         // Don't forget the last section
-        if (currentSection) {
+        if (currentSection && !processedSections.has(currentSection.title)) {
             sections.push({
                 ...currentSection,
                 content: sectionContent.trim(),
-                subtasks: this.extractSubtasks(sectionContent)
+                completed: false
             });
         }
 
@@ -147,23 +151,20 @@ class PresentationApp {
         const item = document.createElement('div');
         item.className = 'accordion-item';
         item.dataset.sectionId = section.id;
-
-        const progress = this.calculateSectionProgress(section);
         
         item.innerHTML = `
             <div class="accordion-header" data-section="${section.id}">
                 <div class="accordion-title">${section.id}. ${section.title}</div>
                 <div class="accordion-meta">
                     <span class="time-badge">${section.time} min</span>
-                    <span class="progress-badge">${Math.round(progress)}%</span>
+                    <span class="completion-badge ${section.completed ? 'completed' : ''}">${section.completed ? '✓ Complete' : 'Pending'}</span>
                     <span class="accordion-arrow">▼</span>
                 </div>
             </div>
             <div class="accordion-content">
                 <div class="accordion-body">
                     ${this.createTimerSection(section)}
-                    ${this.createProgressSection(section, progress)}
-                    ${this.createChecklistSection(section)}
+                    ${this.createCompletionSection(section)}
                     ${this.createContentSection(section)}
                 </div>
             </div>
@@ -186,38 +187,19 @@ class PresentationApp {
         `;
     }
 
-    createProgressSection(section, progress) {
+    createCompletionSection(section) {
         return `
-            <div class="progress-section">
-                <div class="section-progress">
-                    <div class="section-progress-bar" style="width: ${progress}%"></div>
-                </div>
-                <small>${section.subtasks.filter(t => t.completed).length} of ${section.subtasks.length} items completed</small>
+            <div class="completion-section">
+                <button class="section-complete-btn ${section.completed ? 'completed' : ''}" 
+                        data-section="${section.id}" 
+                        data-action="toggle-complete">
+                    ${section.completed ? '✓ Section Completed' : 'Mark Section Complete'}
+                </button>
+                <p class="completion-help">Click to mark this section as ${section.completed ? 'incomplete' : 'completed'} during your presentation.</p>
             </div>
         `;
     }
 
-    createChecklistSection(section) {
-        if (section.subtasks.length === 0) return '';
-
-        const checklistItems = section.subtasks.map(task => `
-            <div class="checklist-item ${task.completed ? 'completed' : ''}">
-                <input type="checkbox" 
-                       id="task-${section.id}-${task.id}" 
-                       data-section="${section.id}" 
-                       data-task="${task.id}"
-                       ${task.completed ? 'checked' : ''}>
-                <label for="task-${section.id}-${task.id}">${task.text}</label>
-            </div>
-        `).join('');
-
-        return `
-            <div class="checklist">
-                <h3>Section Checklist</h3>
-                ${checklistItems}
-            </div>
-        `;
-    }
 
     createContentSection(section) {
         // Convert markdown content to HTML (basic conversion)
@@ -257,10 +239,10 @@ class PresentationApp {
             }
         });
 
-        // Checkbox changes
-        document.addEventListener('change', (e) => {
-            if (e.target.matches('input[type="checkbox"][data-section]')) {
-                this.handleCheckboxChange(e.target);
+        // Section completion toggle
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('[data-action="toggle-complete"]')) {
+                this.handleSectionComplete(e.target);
             }
         });
 
@@ -290,6 +272,7 @@ class PresentationApp {
     toggleAccordion(header) {
         const content = header.nextElementSibling;
         const isActive = header.classList.contains('active');
+        const accordionItem = header.closest('.accordion-item');
 
         // Close all other accordions
         document.querySelectorAll('.accordion-header.active').forEach(h => {
@@ -301,6 +284,14 @@ class PresentationApp {
         if (!isActive) {
             header.classList.add('active');
             content.classList.add('active');
+            
+            // Auto-scroll to the top of the opened accordion with smooth animation
+            setTimeout(() => {
+                accordionItem.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 100); // Small delay to allow accordion animation to start
         }
     }
 
@@ -393,50 +384,36 @@ class PresentationApp {
         document.getElementById('total-time-display').textContent = '00:00';
     }
 
-    handleCheckboxChange(checkbox) {
-        const sectionId = parseInt(checkbox.dataset.section);
-        const taskId = parseInt(checkbox.dataset.task);
+    handleSectionComplete(button) {
+        const sectionId = parseInt(button.dataset.section);
         const section = this.sections.find(s => s.id === sectionId);
-        const task = section.subtasks.find(t => t.id === taskId);
-
-        task.completed = checkbox.checked;
-
-        // Update visual state
-        const checklistItem = checkbox.closest('.checklist-item');
-        checklistItem.classList.toggle('completed', checkbox.checked);
-
-        // Update progress
-        this.updateSectionProgress(sectionId);
+        
+        // Toggle completion status
+        section.completed = !section.completed;
+        
+        // Update button text and style
+        button.textContent = section.completed ? '✓ Section Completed' : 'Mark Section Complete';
+        button.classList.toggle('completed', section.completed);
+        
+        // Update completion badge in header
+        const completionBadge = document.querySelector(`[data-section-id="${sectionId}"] .completion-badge`);
+        if (completionBadge) {
+            completionBadge.textContent = section.completed ? '✓ Complete' : 'Pending';
+            completionBadge.classList.toggle('completed', section.completed);
+        }
+        
+        // Update overall progress
         this.updateOverallProgress();
         this.saveProgress();
     }
 
-    updateSectionProgress(sectionId) {
-        const section = this.sections.find(s => s.id === sectionId);
-        const progress = this.calculateSectionProgress(section);
-        
-        const progressBar = document.querySelector(`[data-section-id="${sectionId}"] .section-progress-bar`);
-        const progressBadge = document.querySelector(`[data-section-id="${sectionId}"] .progress-badge`);
-        const progressText = document.querySelector(`[data-section-id="${sectionId}"] .progress-section small`);
 
-        if (progressBar) progressBar.style.width = `${progress}%`;
-        if (progressBadge) progressBadge.textContent = `${Math.round(progress)}%`;
-        if (progressText) {
-            progressText.textContent = `${section.subtasks.filter(t => t.completed).length} of ${section.subtasks.length} items completed`;
-        }
-    }
-
-    calculateSectionProgress(section) {
-        if (section.subtasks.length === 0) return 0;
-        return (section.subtasks.filter(t => t.completed).length / section.subtasks.length) * 100;
-    }
 
     updateOverallProgress() {
-        const totalTasks = this.sections.reduce((sum, section) => sum + section.subtasks.length, 0);
-        const completedTasks = this.sections.reduce((sum, section) => 
-            sum + section.subtasks.filter(t => t.completed).length, 0);
+        const totalSections = this.sections.length;
+        const completedSections = this.sections.filter(s => s.completed).length;
         
-        const progress = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        const progress = totalSections > 0 ? Math.round((completedSections / totalSections) * 100) : 0;
         document.getElementById('overall-progress').textContent = `${progress}%`;
     }
 
@@ -450,10 +427,8 @@ class PresentationApp {
         const progress = {
             sections: this.sections.map(section => ({
                 id: section.id,
-                subtasks: section.subtasks.map(task => ({
-                    id: task.id,
-                    completed: task.completed
-                }))
+                title: section.title,
+                completed: section.completed
             })),
             timestamp: new Date().toISOString()
         };
@@ -469,14 +444,9 @@ class PresentationApp {
             const progress = JSON.parse(saved);
             
             progress.sections.forEach(savedSection => {
-                const section = this.sections.find(s => s.id === savedSection.id);
+                const section = this.sections.find(s => s.id === savedSection.id && s.title === savedSection.title);
                 if (section) {
-                    savedSection.subtasks.forEach(savedTask => {
-                        const task = section.subtasks.find(t => t.id === savedTask.id);
-                        if (task) {
-                            task.completed = savedTask.completed;
-                        }
-                    });
+                    section.completed = savedSection.completed;
                 }
             });
         } catch (error) {
@@ -487,9 +457,7 @@ class PresentationApp {
     resetAllProgress() {
         if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
             this.sections.forEach(section => {
-                section.subtasks.forEach(task => {
-                    task.completed = false;
-                });
+                section.completed = false;
             });
             
             localStorage.removeItem('claude-presentation-progress');
@@ -503,16 +471,13 @@ class PresentationApp {
             sessionTitle: 'Session 1: What is Claude Code & Getting Started',
             exportDate: new Date().toISOString(),
             overallProgress: document.getElementById('overall-progress').textContent,
+            completedSections: this.sections.filter(s => s.completed).length,
+            totalSections: this.sections.length,
             sections: this.sections.map(section => ({
                 title: section.title,
                 timeAllotted: `${section.time} min`,
-                progress: `${Math.round(this.calculateSectionProgress(section))}%`,
-                completedTasks: section.subtasks.filter(t => t.completed).length,
-                totalTasks: section.subtasks.length,
-                tasks: section.subtasks.map(task => ({
-                    text: task.text,
-                    completed: task.completed
-                }))
+                completed: section.completed,
+                status: section.completed ? 'Completed' : 'Pending'
             }))
         };
 

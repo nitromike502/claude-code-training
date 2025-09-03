@@ -17,7 +17,7 @@ body {
 .presentation-header {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    padding: 1.5rem 2rem;
+    padding: 0.75rem 2rem;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -26,16 +26,16 @@ body {
 
 .presentation-header h1 {
     color: #2c3e50;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem;
 }
 
 .session-info {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: #666;
 }
 
@@ -114,17 +114,26 @@ body {
     background: rgba(255, 255, 255, 0.2);
 }
 
-.progress-badge {
+.completion-badge {
     background: #6c757d;
     color: white;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     font-size: 0.8rem;
     font-weight: 500;
+    transition: background 0.3s ease;
 }
 
-.accordion-header.active .progress-badge {
+.completion-badge.completed {
+    background: #28a745;
+}
+
+.accordion-header.active .completion-badge {
     background: rgba(255, 255, 255, 0.2);
+}
+
+.accordion-header.active .completion-badge.completed {
+    background: rgba(40, 167, 69, 0.8);
 }
 
 .accordion-arrow {
@@ -216,24 +225,44 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-/* Progress section */
-.progress-section {
+/* Completion section */
+.completion-section {
     margin: 1.5rem 0;
+    text-align: center;
 }
 
-.section-progress {
-    background: #e9ecef;
-    height: 8px;
-    border-radius: 4px;
-    margin: 1rem 0;
-    overflow: hidden;
+.section-complete-btn {
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 0.5rem;
 }
 
-.section-progress-bar {
-    height: 100%;
-    background: linear-gradient(90deg, #28a745, #20c997);
-    transition: width 0.3s ease;
-    border-radius: 4px;
+.section-complete-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.section-complete-btn.completed {
+    background: #28a745;
+    color: white;
+}
+
+.section-complete-btn.completed:hover {
+    background: #218838;
+}
+
+.completion-help {
+    font-size: 0.85rem;
+    color: #666;
+    margin: 0;
+    font-style: italic;
 }
 
 /* Checklist styles */

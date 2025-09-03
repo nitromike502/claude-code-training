@@ -82,17 +82,6 @@ Step-by-step guide to connecting Claude Code with your project for the first tim
 - **Example:** `cd C:\Users\YourName\Documents\MyProject`
 - Press Enter - you should see your project path in the prompt
 
-**For Mac Users:**
-- Open **Terminal** (find it in Applications > Utilities)
-- Type `cd` followed by your project path: `cd /path/to/your/project`
-- **Example:** `cd /Users/YourName/Documents/MyProject`
-- Press Enter - you should see your project path in the prompt
-
-**Alternative: Drag and Drop Method**
-- Open Terminal/Command Prompt
-- Type `cd ` (with a space after cd)
-- Drag your project folder from Finder/File Explorer into the terminal
-- Press Enter
 
 #### Step 2: First Claude Code Launch (3 min)
 **The Moment of Truth:**
@@ -131,30 +120,6 @@ Step-by-step guide to connecting Claude Code with your project for the first tim
 - **"I don't see any files" message:** Navigation or permission issue  
 - **Error messages:** Check your project path and file permissions
 
-#### Troubleshooting Common Setup Issues (Quick Reference)
-**Problem: "Command 'claude' not found"**
-- **Solution:** Claude Code not installed - contact your IT team or developer
-- **Workaround:** Ask your technical team to install Claude Code for you
-
-**Problem: "Permission denied" or "Access denied"**
-- **Cause:** Your user account can't read the project files
-- **Solution:** Ask your IT team to check file permissions for the project folder
-- **Quick test:** Can you open and view files in the project folder normally?
-
-**Problem: Claude gives very generic answers**
-- **Cause:** You might not be in the right directory
-- **Solution:** Double-check you're in your project folder with `pwd` (Mac) or `cd` (Windows)
-- **Test:** Look for project-specific files in your current directory
-
-**Problem: "No project files found"**
-- **Cause:** Empty folder or Claude can't see your files
-- **Solution:** Verify your project folder contains code files (.js, .py, .php, etc.)
-- **Check:** Use `ls` (Mac) or `dir` (Windows) to list files in current directory
-
-**Problem: Claude takes too long to start**
-- **Cause:** Large project with many files
-- **Normal behavior:** First run can take 30-60 seconds for big projects
-- **Be patient:** Subsequent runs will be much faster
 
 ### 6. (3 min) Claude Code Interface Essentials
 Quick tips to make your Claude Code experience smoother:

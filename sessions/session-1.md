@@ -87,15 +87,11 @@ Step-by-step guide to connecting Claude Code with your project for the first tim
 **The Moment of Truth:**
 - Simply type: `claude`
 - Press Enter
+- Execute command `/init`
 - **What happens next:** Claude Code will:
   - Scan your project files (this may take 10-30 seconds)
   - Build understanding of your project structure
   - Present you with a friendly greeting and prompt
-
-**First-Time Experience:**
-- **Initial scan:** "Reading project files..." (be patient, this is normal)
-- **Success indicator:** You'll see a prompt like `Claude Code > ` 
-- **Ready to use:** When you see the prompt, Claude has understood your project
 
 **What Claude Code Discovers:**
 - **File structure:** All directories, files, and organization
@@ -181,6 +177,23 @@ Commands that start with `/` give you special functionality:
 
 ### 9. (2 min) Wrap-up & What's Next
 Recap the key benefit: Claude Code makes projects transparent and accessible to everyone, while helping maintain high-quality documentation. In the next session, we'll dive deeper into project setup and initialization with real examples.
+
+#### Session 2: Documentation Strategy
+- Building comprehensive documentation about the project
+- Memories
+- Scopes (User, User Project, and Project)
+
+#### Session 3: Slash Commands, Tools & MCP Servers
+- What is a Slash Command
+- MCP Server vs Tool
+- Building custom tools for Claude Code to use
+- Finding, installing, and connecting to MCP servers
+
+#### Session 4: Sub-Agents
+- What is a sub-agent
+- When should you use a sub-agent
+- How do you build a sub-agent
+
 
 ## Role-Specific Quick Wins
 

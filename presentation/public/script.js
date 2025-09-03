@@ -179,8 +179,8 @@ class PresentationApp {
             <div class="accordion-content">
                 <div class="accordion-body">
                     ${this.createTimerSection(section)}
-                    ${this.createCompletionSection(section)}
                     ${this.createContentSection(section)}
+                    ${this.createCompletionSection(section)}
                 </div>
             </div>
         `;
@@ -314,6 +314,7 @@ class PresentationApp {
             content.classList.add('active');
             
             // Auto-scroll to position the accordion just below the sticky header
+            // Wait for the accordion expansion animation to complete (300ms CSS transition + buffer)
             setTimeout(() => {
                 const headerHeight = document.querySelector('.presentation-header').offsetHeight;
                 const accordionTop = accordionItem.getBoundingClientRect().top + window.pageYOffset;
@@ -323,7 +324,7 @@ class PresentationApp {
                     top: targetPosition,
                     behavior: 'smooth'
                 });
-            }, 100); // Small delay to allow accordion animation to start
+            }, 350); // Wait for 300ms accordion animation + 50ms buffer
         }
     }
 

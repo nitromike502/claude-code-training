@@ -136,6 +136,176 @@ claude-code @find "payment processing"
 - **Jira integration:** Auto-generate technical context for tickets  
 - **Confluence integration:** Keep documentation automatically updated
 
+## Managing MCP Servers with settings.json
+
+### Configuration File Overview
+Claude Code uses a `settings.json` file to manage which MCP servers are available and enabled. This gives you fine-grained control over your development environment.
+
+#### Location of settings.json
+```bash
+# Find your Claude Code settings:
+~/.config/claude-code/settings.json
+# or on some systems:
+~/.claude-code/settings.json
+```
+
+### Enabling and Disabling MCP Servers
+
+#### Basic Server Configuration
+```json
+{
+  "mcpServers": {
+    "company-main": {
+      "enabled": true,
+      "url": "company.mcp-server.com",
+      "description": "Main company MCP server"
+    },
+    "development-server": {
+      "enabled": false,
+      "url": "dev.mcp-server.com", 
+      "description": "Development/testing MCP server"
+    },
+    "legacy-projects": {
+      "enabled": false,
+      "url": "legacy.mcp-server.com",
+      "description": "Legacy project analysis"
+    }
+  }
+}
+```
+
+#### Quick Enable/Disable Commands
+```bash
+# Enable a specific server
+claude-code config enable-server company-main
+
+# Disable a specific server  
+claude-code config disable-server development-server
+
+# List all configured servers and their status
+claude-code config list-servers
+
+# Switch primary server
+claude-code config set-primary-server company-main
+```
+
+### Real-World Scenarios
+
+#### Scenario 1: Development vs Production
+```json
+{
+  "mcpServers": {
+    "production": {
+      "enabled": true,
+      "url": "prod.mcp-server.com"
+    },
+    "staging": {
+      "enabled": false,
+      "url": "staging.mcp-server.com"
+    }
+  },
+  "activeEnvironment": "production"
+}
+```
+
+#### Scenario 2: Project-Specific Servers
+```json
+{
+  "mcpServers": {
+    "ecommerce-team": {
+      "enabled": true,
+      "projects": ["laravel-vue-ecommerce", "mobile-app"],
+      "url": "ecommerce.mcp-server.com"
+    },
+    "infrastructure-team": {
+      "enabled": false,
+      "projects": ["devops-tools", "monitoring"],
+      "url": "infra.mcp-server.com"
+    }
+  }
+}
+```
+
+### Team Coordination Benefits
+
+#### Consistent Team Environment
+**The Problem:** Team members using different MCP servers
+- Developer uses production server: Gets current production code analysis
+- QA uses staging server: Gets outdated analysis
+- Results in miscommunication and inconsistent information
+
+**The Solution:** Standardized settings.json
+```bash
+# Team lead shares standard configuration
+curl -o ~/.config/claude-code/settings.json \
+  https://company-internal/claude-code/team-settings.json
+
+# Or use version control
+git clone company-configs/claude-code-settings
+cp claude-code-settings/settings.json ~/.config/claude-code/
+```
+
+#### Environment-Specific Analysis  
+```json
+{
+  "environments": {
+    "development": {
+      "mcpServer": "dev-server",
+      "autoSync": true
+    },
+    "production": {
+      "mcpServer": "prod-server", 
+      "readOnly": true
+    }
+  }
+}
+```
+
+### Troubleshooting Configuration Issues
+
+#### Check Server Status
+```bash
+# Verify which servers are active
+claude-code @status
+
+# Test server connection
+claude-code test-server company-main
+
+# Reset to default configuration  
+claude-code config reset
+```
+
+#### Common Configuration Problems
+**Problem:** "No MCP server available"
+```json
+// Solution: Ensure at least one server is enabled
+{
+  "mcpServers": {
+    "default": {
+      "enabled": true,  // Make sure this is true
+      "url": "your-server-url"
+    }
+  }
+}
+```
+
+**Problem:** "Server connection failed"
+```json
+// Solution: Add fallback configuration
+{
+  "mcpServers": {
+    "primary": {
+      "enabled": true,
+      "url": "primary-server.com"
+    }
+  },
+  "fallback": {
+    "enabled": true,
+    "mode": "local"  // Falls back to local analysis
+  }
+}
+```
+
 ## Implementation Considerations
 
 ### Security & Privacy

@@ -1,13 +1,5 @@
 {
   "mcpServers": {
-    "fetch": {
-      "type": "stdio",
-      "command": "node",
-      "args": [
-        "/home/mcp/fetch/dist/index.js"
-      ],
-      "env": {}
-    },
     "google-slides-mcp": {
       "transportType": "stdio",
       "command": "node",

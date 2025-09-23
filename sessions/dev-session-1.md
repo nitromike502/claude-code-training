@@ -71,7 +71,7 @@ Each subagent maintains its own context and memory, then reports back results to
 - **Project-level:** `.claude/agents/*.md` (shared with team)
 - **User-level:** `~/.claude/agents/*.md` (personal subagents)
 - **Project/User level:** `.claude/agents/*.local.md` (personal & project specific, requires .gitignore entry)
-- **Scoped:**: `.../agents/dev/*.md` (scoped for organization, not currently working in Windows)
+- **Organized:**: `agents/dev/*.md` (grouped for organization, names must be unique)
 
 **Basic Structure:**
 ```yaml
@@ -140,6 +140,128 @@ You are a technical writer specializing in API documentation...
 3. **Tool Limitations:** Restrict tools to only what's needed for the specific task
 4. **Naming Convention:** Use descriptive, consistent naming (e.g., `security-reviewer`, `performance-analyzer`)
 5. **Team Sharing:** Store team subagents in `.claude/agents/` for project-wide access (when included in your repo)
+
+#### Security Considerations for Subagents
+**Tool Access Control:**
+Subagents should follow the principle of least privilege when it comes to tool access:
+
+```yaml
+# Security-focused subagent - read-only access
+---
+name: security-scanner
+description: Identifies security vulnerabilities in code
+tools: Read, Grep, Glob  # No Write, Edit, or Bash access
+---
+
+# Documentation subagent - limited write access
+---
+name: doc-generator
+description: Generates project documentation
+tools: Read, Write, Glob  # No Bash access for security
+---
+
+# Full-access subagent - use sparingly
+---
+name: deployment-manager
+description: Handles deployment and infrastructure tasks
+# No tools specified = full access - use with extreme caution
+---
+```
+
+**Security Risk Assessment by Tool:**
+- **High Risk:** `Bash`, `KillShell` - Can execute arbitrary commands
+- **Medium Risk:** `Write`, `Edit`, `MultiEdit` - Can modify files and potentially inject malicious code
+- **Low Risk:** `Read`, `Grep`, `Glob` - Read-only operations
+- **Minimal Risk:** `TodoWrite` - Only affects session state
+- **Variable Risk:** Individual MCP tools/functions
+
+**Sensitive Data Protection:**
+- Never include API keys, passwords, or secrets in subagent configurations
+- Use environment variables and secure credential management
+- Avoid logging sensitive information in subagent prompts (default claude logs)
+- Be cautious with subagents that analyze authentication or security code, use 1 Password CLI when possible
+
+**Team Security Best Practices:**
+- Review all team-shared subagents before committing to repositories
+- Establish code review processes for subagent modifications
+- Define and document security requirements for different subagent types
+- Regularly audit subagent tool permissions and usage patterns
+
+#### Context Size Management
+**Understanding Context Limits:**
+Subagents operate with isolated contexts, but they still have token limitations that affect performance and accuracy:
+
+**Context Size Factors:**
+- **System Prompt Length:** Detailed subagent instructions consume tokens
+- **File Content:** Large files can quickly fill context windows
+- **Task Complexity:** Multi-step tasks require more context tracking
+- **Tool Output:** Command results and file contents accumulate
+- **Tool Permissions:** Every tool and MCP endpoint consume tokens, which can add up quickly
+
+**Optimization Strategies:**
+
+**1. Scope Control:**
+```yaml
+---
+name: focused-reviewer
+description: Reviews specific file types for Laravel applications
+# Focus the subagent's scope to reduce context usage
+---
+
+When analyzing code, focus only on:
+- PHP files in app/ directory
+- Blade templates in resources/views/
+- Ignore vendor/, node_modules/, and storage/ directories
+
+Use targeted Read and Grep operations rather than broad directory scans.
+```
+
+**2. Chunked Analysis:**
+```yaml
+---
+name: large-codebase-analyzer
+description: Analyzes large codebases in manageable chunks
+---
+
+Break analysis into focused segments:
+1. First, identify key files using Glob patterns
+2. Analyze files in logical groups (controllers, models, views)
+3. Provide incremental reports rather than comprehensive analysis
+4. Use Grep for targeted searches instead of reading entire files
+```
+
+**3. Context-Aware Tool Usage:**
+- **Prefer Grep over Read** for finding specific patterns
+- **Use Glob efficiently** with targeted patterns instead of `**/*`
+- **Limit file analysis** to relevant sections using Read with offset/limit
+- **Batch similar operations** to reduce context switching
+
+**4. Progressive Analysis Pattern:**
+```yaml
+---
+name: progressive-analyzer
+description: Performs analysis in progressive stages to manage context
+---
+
+Analysis approach:
+1. **Discovery Phase:** Use Glob and Grep to map the codebase structure
+2. **Targeted Review:** Focus on specific files or patterns identified in phase 1
+3. **Incremental Reporting:** Provide findings as you discover them
+4. **Context Reset:** For large projects, recommend breaking into multiple subagent invocations
+```
+
+**Context Management Best Practices:**
+- **Monitor subagent performance** - if responses become less accurate, context may be full
+- **Design for incremental analysis** rather than comprehensive reviews
+- **Use specific file patterns** instead of broad directory scans
+- **Break complex tasks** into multiple focused subagent calls
+- **Regularly audit subagent efficiency** and refine prompts to reduce token usage
+
+**Warning Signs of Context Issues:**
+- Subagent responses becoming less detailed or accurate
+- Incomplete analysis of later files in a sequence
+- Generic responses that don't reference specific code patterns
+- Subagent asking to restart or break tasks into smaller pieces
 
 #### Common Pitfalls and Troubleshooting
 **Subagent Not Being Invoked:**
@@ -225,8 +347,16 @@ How to create and use custom slash commands for streamlined development workflow
 #### Creating Custom Commands
 **File Structure:** Markdown files with YAML frontmatter in command directories
 **Command Storage:**
-- Project-level: `.claude/commands/` (team-shared)
-- Personal: `~/.claude/commands/` (user-specific)
+- Project-level: `.claude/commands/` 
+  - Team shared
+- Personal: `~/.claude/commands/`
+  - User specific
+- Project/User level: `.claude/commands/*.local.md`
+  - Personal & Project specific
+  - Requires .gitignore entry `*.local.md`
+- Namespacing: `commands/dev/*.md`
+  - Grouped for organization
+  - Called using the namespace prefix (ie. `/dev:laravel-developer`)
 
 #### Practical Command Examples
 
@@ -240,7 +370,7 @@ Please review the following code for:
 1. Security vulnerabilities (SQL injection, XSS, authentication issues)
 2. Performance bottlenecks and optimization opportunities
 3. Code quality and maintainability issues
-4. Adherence to team coding standards
+4. Adherence to team coding standards, defined in @docs/coding-standards.md
 
 Focus on actionable feedback and specific recommendations.
 
@@ -250,6 +380,7 @@ $ARGUMENTS
 **API Documentation Command:**
 ```yaml
 ---
+allowed-tools: Bash(php artisan:*), Write, Read ...
 description: "Generate OpenAPI documentation for Laravel routes"
 ---
 
@@ -268,6 +399,7 @@ $ARGUMENTS
 **Database Schema Command:**
 ```yaml
 ---
+allowed-tools: Bash(php artisan:*), Write, Read ...
 description: "Document database schema and relationships"
 ---
 
@@ -285,12 +417,13 @@ Focus on: $1
 #### Advanced Command Features
 **Argument Handling:**
 - `$ARGUMENTS`: All arguments passed to command
-- `$1`, `$2`, etc.: Individual positional arguments
+- `$1`, `$2`, etc.: Individual positional arguments, use quotes to enclose content as an argument
 - File references with `@filename` syntax
 
 **Bash Integration:**
 ```yaml
 ---
+allowed-tools: Bash(php artisan:*), Write, Read ...
 description: "Run tests and generate coverage report"
 ---
 
@@ -305,7 +438,7 @@ Please analyze the test results and provide recommendations for:
 
 **Command Namespacing:**
 - Directory structure creates command namespaces
-- Example: `.claude/commands/laravel/migrate.md` becomes `/laravel/migrate`
+- Example: `.claude/commands/laravel/migrate.md` becomes `/laravel:migrate`
 
 ### 6. (10 min) Hooks: Automated Workflow Integration
 How to use hooks to automate development workflows and integrate Claude Code with your existing tools.

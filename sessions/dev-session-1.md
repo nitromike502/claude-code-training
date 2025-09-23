@@ -1,6 +1,6 @@
 # Dev Session 1: Subagents, Slash Commands & Hooks Integration
 
-**Length:** 45-55 minutes (technical deep-dive with practical implementation examples)
+**Length:** 50-60 minutes (technical deep-dive with practical implementation examples)
 **Goal:** Developers will understand Claude Code's subagent system, master custom slash commands, and implement hooks for automated workflows in their development teams.
 **Core Concepts:** Subagent Configuration, Custom Slash Commands, Hook Automation, Workflow Integration, Development Productivity
 
@@ -9,109 +9,212 @@
 ### 1. (5 min) Introduction: Beyond Basic Claude Code
 Start by acknowledging that while basic Claude Code is powerful, the real productivity gains come from leveraging specialized subagents that handle specific development workflows.
 
-### 2. (8 min) Subagent System Overview
-Understanding how Claude Code's subagent system works and how to create specialized AI assistants for your development workflows.
+### 2. (12 min) Understanding Subagents: The Foundation
+Before diving into advanced topics, let's establish a solid understanding of what subagents are and why they're essential for developer productivity.
 
 #### What Are Subagents?
-- **Specialized AI assistants:** Independent context windows optimized for specific tasks
-- **Custom system prompts:** Each subagent has tailored instructions for its domain
-- **Tool restrictions:** Subagents can have limited tool access for security and focus
-- **Automatic or explicit invocation:** Claude can delegate automatically or you can invoke directly
+**Definition:** Subagents are specialized AI assistants within Claude Code that operate in separate context windows, each optimized for specific types of development tasks.
 
-#### Real Subagent Examples
-- **Code Reviewer:** Analyzes code quality, security vulnerabilities, and best practices
-- **Debugger:** Investigates technical issues and suggests resolution strategies
-- **Data Scientist:** Performs SQL queries and data analysis tasks
-- **[Custom agents you create]:** Tailored to your team's specific needs and workflows
+Think of subagents as having different "experts" on your development team:
+- Your **security expert** (security-reviewer subagent) who focuses solely on finding vulnerabilities
+- Your **database specialist** (database-expert subagent) who optimizes queries and schemas
+- Your **documentation writer** (api-documenter subagent) who creates comprehensive docs
+- Your **code reviewer** (code-reviewer subagent) who focuses on quality and maintainability
 
-#### Technical Implementation
-- **Agent definitions:** Markdown files with YAML frontmatter in `.claude/agents/` (project) or `~/.claude/agents/` (user)
-- **Configuration fields:** `name`, `description`, `tools`, `model` selection
-- **Context isolation:** Each subagent operates in its own context window
-- **Flexible invocation:** Automatic delegation or explicit command-based activation
+**Key Characteristics:**
+- **Isolated context:** Each subagent operates in its own conversation context, preventing information bleed
+- **Specialized instructions:** Custom system prompts tailored to specific domains
+- **Tool restrictions:** Can be configured with limited tool access for security and focus
+- **Reusable expertise:** Once created, can be used across projects and team members
 
-### 3. (10 min) Creating Custom Subagents
-How to create specialized subagents tailored to your development team's specific needs and workflows.
+#### Why Use Subagents Instead of General Claude Code?
+**Context Preservation:** Your main Claude Code conversation stays clean and focused while subagents handle specialized analysis in separate contexts.
 
-#### Subagent Configuration Structure
-**File Format:** Markdown files with YAML frontmatter
-**Storage Locations:**
-- Project-level: `.claude/agents/` (highest priority)
-- User-level: `~/.claude/agents/`
+**Specialized Expertise:** A security-focused subagent will provide deeper, more accurate security analysis than asking general Claude Code to "check for security issues."
 
-**Configuration Fields:**
-```yaml
----
-name: "code-reviewer"
-description: "Analyzes code quality, security vulnerabilities, and best practices"
-tools: ["Read", "Grep", "Glob", "git"]
-model: "sonnet" # Options: sonnet, opus, haiku, inherit
----
+**Consistency:** Subagents provide consistent analysis patterns - your code-reviewer subagent will always check the same quality criteria.
 
-You are an expert code reviewer specializing in security vulnerabilities and best practices.
-Focus on identifying potential issues in code quality, performance, and maintainability.
+**Efficiency:** Subagents are optimized for their specific domain, often providing faster and more accurate results.
 
-When reviewing code:
-1. Analyze for security vulnerabilities
-2. Check for performance bottlenecks
-3. Suggest improvements for readability
-4. Verify adherence to coding standards
+#### When Should You Use Subagents?
+**Use subagents when you have:**
+- **Repetitive specialized tasks** (code reviews, documentation generation, security analysis)
+- **Complex analysis requiring domain expertise** (database optimization, API design)
+- **Tasks that need consistent criteria** (coding standards enforcement, testing patterns)
+- **Work requiring tool restrictions** (giving limited access for specific operations)
+
+**Stick with main Claude Code for:**
+- **General questions and conversations**
+- **One-off tasks that don't need specialization**
+- **Exploratory work where you're not sure what you need**
+- **Simple tasks that don't benefit from specialized context**
+
+#### How Do Subagents Work?
+**Invocation Methods:**
+1. **Automatic delegation:** Claude Code detects the task type and automatically invokes appropriate subagents, based on the descriptions defined in the subagents' YAML
+2. **Explicit requests:** You can specifically request a subagent: "Use the security-reviewer subagent to analyze this authentication code"
+3. **Command-based:** Some subagents can be invoked through custom slash commands
+
+**Context Flow:**
+```
+Main Claude Code Session
+├── Your conversation and general tasks
+├── Subagent: security-reviewer (analyzing auth.php)
+├── Subagent: database-expert (optimizing queries)
+└── Subagent: api-documenter (generating docs)
 ```
 
-#### Practical Subagent Examples
+Each subagent maintains its own context and memory, then reports back results to your main session.
 
-**Code Reviewer Subagent:**
+#### Creating Your First Subagent
+**Location:** Subagents are defined as Markdown files with YAML frontmatter in:
+- **Project-level:** `.claude/agents/*.md` (shared with team)
+- **User-level:** `~/.claude/agents/*.md` (personal subagents)
+- **Project/User level:** `.claude/agents/*.local.md` (personal & project specific, requires .gitignore entry)
+- **Scoped:**: `.../agents/dev/*.md` (scoped for organization, not currently working in Windows)
+
+**Basic Structure:**
 ```yaml
 ---
-name: "security-reviewer"
-description: "Specialized security analysis and vulnerability detection"
-tools: ["Read", "Grep", "Bash"]
-model: "sonnet"
+name: my-code-reviewer
+description: Reviews code for quality, security, and best practices
+tools: Read, Grep, Glob
+model: sonnet
+color: blue
 ---
 
-You are a security-focused code reviewer. Analyze code for:
-- SQL injection vulnerabilities
-- XSS attack vectors
-- Authentication/authorization flaws
-- Insecure data handling
-- Dependency vulnerabilities
+You are an expert code reviewer specializing in PHP and Laravel applications.
+
+When reviewing code, focus on:
+1. Security vulnerabilities (SQL injection, XSS, authentication issues)
+2. Performance bottlenecks and optimization opportunities
+3. Code maintainability and readability
+4. Adherence to Laravel best practices
+5. Proper error handling and logging
+
+Provide specific, actionable feedback with code examples where helpful.
 ```
 
-**Database Expert Subagent:**
+**Essential Configuration Fields:**
+- `name`: Unique identifier (lowercase, hyphen-separated)
+- `description`: When and how the subagent should be used. Be thorough, this is what Claude uses to determine if/when the subagent should be used
+- `tools`: List of allowed tools (omit for full tool access)
+- `model`: Model to use ("sonnet", "opus", "haiku", or "inherit")
+- `color`: Color of the subagent Task in the CLI
+
+#### Common Subagent Patterns for Developers
+
+**Security-Focused Subagent:**
 ```yaml
 ---
-name: "database-expert"
-description: "Database schema analysis and query optimization specialist"
-tools: ["Read", "Grep", "psql", "mysql"]
-model: "sonnet"
+name: security-scanner
+description: Identifies security vulnerabilities and compliance issues
+tools: Read, Grep, Bash
 ---
+You are a cybersecurity expert specializing in web application security...
+```
 
-You are a database specialist. Focus on:
-- Schema design and optimization
-- Query performance analysis
-- Migration strategy recommendations
-- Index optimization suggestions
-- Data integrity validation
+**Performance Analysis Subagent:**
+```yaml
+---
+name: performance-analyzer
+description: Analyzes code and database performance bottlenecks
+tools: Read, Grep, Bash
+---
+You are a performance optimization specialist focusing on...
 ```
 
 **API Documentation Subagent:**
 ```yaml
 ---
-name: "api-documenter"
-description: "Generates comprehensive API documentation from code"
-tools: ["Read", "Write", "Glob"]
-model: "sonnet"
+name: api-documenter
+description: Generates comprehensive API documentation from code
+tools: Read, Write, Glob
 ---
-
-You are an API documentation specialist. Create comprehensive documentation including:
-- Endpoint descriptions and parameters
-- Request/response examples
-- Authentication requirements
-- Error handling documentation
-- OpenAPI/Swagger specifications
+You are a technical writer specializing in API documentation...
 ```
 
-### 4. (12 min) Custom Slash Command System
+#### Best Practices for Subagent Success
+1. **Single Purpose:** Each subagent should have one clear, focused responsibility
+2. **Detailed Prompts:** Write comprehensive system prompts with specific examples
+3. **Tool Limitations:** Restrict tools to only what's needed for the specific task
+4. **Naming Convention:** Use descriptive, consistent naming (e.g., `security-reviewer`, `performance-analyzer`)
+5. **Team Sharing:** Store team subagents in `.claude/agents/` for project-wide access (when included in your repo)
+
+#### Common Pitfalls and Troubleshooting
+**Subagent Not Being Invoked:**
+- Check that the `description` field clearly indicates when the subagent should be used
+- Ensure the subagent name doesn't conflict with built-in subagents
+- Verify the YAML frontmatter is properly formatted
+
+**Poor Subagent Performance:**
+- Avoid overly generic system prompts - be specific about the subagent's role
+- Include examples in the system prompt for complex behaviors
+- Consider tool restrictions if the subagent doesn't need full tool access
+
+**Context Confusion:**
+- Remember that subagents operate in isolated contexts - they don't know about your main conversation
+- Include all necessary context in the task prompt when using explicit Task calls
+- Consider when automatic delegation might be better than explicit invocation
+
+**Team Adoption Issues:**
+- Start with simple, high-value subagents (code-reviewer, security-scanner)
+- Provide clear documentation on when and how to use each subagent
+- Consider creating project-specific examples and use cases
+
+### 3. (6 min) Advanced Subagent Features & Task Tool
+Understanding the Task tool for explicit subagent invocation and advanced subagent capabilities.
+
+#### Built-in vs Custom Subagents
+**Built-in Subagents:** Claude Code comes with several pre-configured subagents:
+- `general-purpose`: 
+  - For complex multi-step tasks and research
+  - Shows in CLI as `Task({prompt given to subagent})`
+  - Invoke by prompting "Use the general-purpose subagent to ..."
+- `statusline-setup`: 
+  - To build a Status Line configuration. 
+  - Invoke with `/statusline`
+  - looks for existing PS1 prompt definitions (from `~/.bashrc` or similar)
+- `output-style-setup`: 
+  - To help the user build an output style
+  - Provides a wizard type experience.
+  - Invoke with `/output-style:new`, 
+
+**Custom Subagents:** Your team-specific or project-specific agents stored in `.claude/agents/`
+
+#### Subagent Selection Strategy
+**Automatic Selection:** 
+Claude Code analyzes your request and automatically chooses appropriate subagents based on:
+- Task type and complexity
+- Keywords in your request
+- Project context and files involved
+
+**Example prompt:** "Commit the code changes and create a **__git__** pull request" 
+
+**Manual Selection:** 
+Use explicit Task tool calls when you need:
+- Specific expertise for a particular domain
+- Consistent analysis patterns
+- Tool restrictions for security
+- Parallel processing of multiple tasks
+
+**Example prompt:** "Use the **__git-workflow__** subagent to commit changes and create a PR
+
+### 4. Other Ideas for Subagents
+
+1. **Subagent Editor**: 
+- You're in the middle of development for a ticket and realize you need to edit a subagent, because it made several mistakes when used.
+- A subagent will research and learn how subagents work, then read the agent to be edited, provide suggested edits, and perform the requested changes
+
+2. **Research Agent**: 
+- You're performing a technical discovery and want Claude to research a feature, but don't want to risk reaching the session limit and auto-compacting
+- The subagent will perform the research and generate a comprehensive answer, without affecting the main session context/tokens
+
+3. **Documentation Maintainer**: 
+- You've reached the end of a development session, and don't want to lose context, but docs need to be updated from your changes
+- The subagent can consume more project documentation, review git changes, and determine where updates may need to be made
+
+### 5. (12 min) Custom Slash Command System
 How to create and use custom slash commands for streamlined development workflows.
 
 #### Understanding Slash Command Types
@@ -204,7 +307,7 @@ Please analyze the test results and provide recommendations for:
 - Directory structure creates command namespaces
 - Example: `.claude/commands/laravel/migrate.md` becomes `/laravel/migrate`
 
-### 5. (10 min) Hooks: Automated Workflow Integration
+### 6. (10 min) Hooks: Automated Workflow Integration
 How to use hooks to automate development workflows and integrate Claude Code with your existing tools.
 
 #### What Are Hooks?
@@ -310,7 +413,7 @@ fi
 **Credential Protection:** Never log or expose sensitive credentials in hooks
 **Permission Limiting:** Run hooks with minimal required permissions
 
-### 6. (7 min) Workflow Integration Strategies
+### 7. (7 min) Workflow Integration Strategies
 How to integrate subagents and slash commands into your existing development workflows.
 
 #### Development Lifecycle Integration
@@ -346,7 +449,7 @@ How to integrate subagents and slash commands into your existing development wor
 - **Performance monitoring:** [Stub - Regular performance analysis]
 - **Security scanning:** [Stub - Automated security assessments]
 
-### 7. (3 min) Performance and Best Practices
+### 8. (3 min) Performance and Best Practices
 Optimization strategies for maximum productivity with subagents.
 
 #### Performance Optimization
@@ -371,7 +474,7 @@ Optimization strategies for maximum productivity with subagents.
 - **Continuous improvement:** [Stub - Refining agent configurations based on usage]
 - **Team standardization:** [Stub - Establishing team-wide agent usage standards]
 
-### 8. (2 min) Wrap-up & Advanced Topics Preview
+### 9. (2 min) Wrap-up & Advanced Topics Preview
 Recap the power of subagent specialization and preview advanced topics like custom agent development and enterprise deployment strategies.
 
 ## Technical Implementation Examples

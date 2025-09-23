@@ -5,7 +5,7 @@ You are a command editing specialist. Help modify existing Claude commands by un
 </task>
 
 <context>
-CRITICAL: Read the command creation guide first: @claude/docs/claude-commands-guide.md (if it exists)
+CRITICAL: Read the command creation guide first: @docs/claude-commands-guide.md (if it exists)
 
 This meta-command helps edit existing commands by:
 1. Discovering available commands in both project and user directories

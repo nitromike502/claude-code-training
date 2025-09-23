@@ -9,7 +9,7 @@ This repository contains training materials for Claude Code, specifically a comp
 ## Key Files
 
 - `overview.md` - Contains the complete "Claude Code Lunch & Learn Series: From Zero to Hero" curriculum, a comprehensive training program designed for both non-technical staff and developers
-- `sessions/` - Individual session documents (session-1.md through session-5.md, plus dev-session-1.md for advanced developer topics)
+- `sessions/` - Individual session documents (session-1.md through session-5.md, plus dev-session-1/ directory containing comprehensive advanced developer training materials)
 - `examples/laravel-vue-ecommerce/` - Live Laravel + Vue.js e-commerce application for training demonstrations
 - `example-projects.md` - Alternative project options for training scenarios
 - `presentation/` - Interactive presentation delivery system with Node.js server and web interface
@@ -18,14 +18,17 @@ This repository contains training materials for Claude Code, specifically a comp
 
 ## Content Structure
 
-The training series is organized into 5 progressive sessions for non-technical staff, plus 1 advanced developer session:
+The training series is organized into 5 progressive sessions for non-technical staff, plus comprehensive advanced developer training:
 
 1. **Session 1**: Introduction to Claude Code and its core purpose (15 min)
 2. **Session 2**: Project initialization and setup (20 min)
 3. **Session 3**: Documentation generation with Markdown (20 min)
 4. **Session 4**: MCP Servers and centralized analysis (15 min)
 5. **Session 5**: Sub-agents overview (@explain, @docu, @find) (20 min)
-6. **Dev Session 1**: Advanced developer topics: subagents, slash commands, and hooks (45-55 min)
+6. **Dev Session Series**: Advanced developer topics organized in progressive modules:
+   - **Dev Session 0**: Introduction and setup for advanced topics
+   - **Dev Session 1**: Core subagents, slash commands, and hooks (main session)
+   - **Dev Session 1a-1d**: Specialized modules covering advanced automation, custom agents, and workflow optimization
 
 Each session includes:
 - Clear learning objectives
@@ -114,10 +117,10 @@ npm start
 - The `.mcp.json` file uses environment variable inheritance for secure credential management
 
 ### Custom Claude Commands
-The repository includes specialized Claude commands for common tasks:
+The repository includes specialized Claude commands for common training and development tasks:
 
 - `/setup-demo` - Complete training environment preparation including DDEV setup, database seeding, and presentation server
-- `/docs` - Comprehensive documentation maintenance and updates
+- `/docs` - Comprehensive documentation maintenance and updates (currently running)
 - `/commit` - Conventional commit creation with automatic change analysis
 - `/present-session` - Session-specific presentation tools and guidance
 - `/validate-sessions` - Training content quality assurance and validation

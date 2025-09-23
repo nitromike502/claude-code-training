@@ -15,7 +15,7 @@ The training is organized as individual 15-20 minute sessions for non-technical 
 - **[Session 3](sessions/session-3.md)**: Creating Great Documentation with `.md` Files
 - **[Session 4](sessions/session-4.md)**: The Next Level: What are MCP Servers?
 - **[Session 5](sessions/session-5.md)**: Meet the Sub-Agents (Claude Code's "Modes")
-- **[Dev Session 1](sessions/dev-session-1.md)**: Advanced Developer Topics: Subagents, Slash Commands & Hooks
+- **[Dev Session 1](sessions/dev-session-1/)**: Advanced Developer Topics: Subagents, Slash Commands & Hooks
 
 ## Example Project
 The training materials use a **Laravel Vue.js E-commerce application** as the primary example throughout all sessions. This provides:

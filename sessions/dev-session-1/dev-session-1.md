@@ -1,10 +1,54 @@
-# Dev Session 1: Subagents, Slash Commands & Hooks Integration
+# Dev Session 1: Advanced Claude Code Developer Training Series
 
-**Length:** 50-60 minutes (technical deep-dive with practical implementation examples)
-**Goal:** Developers will understand Claude Code's subagent system, master custom slash commands, and implement hooks for automated workflows in their development teams.
-**Core Concepts:** Subagent Configuration, Custom Slash Commands, Hook Automation, Workflow Integration, Development Productivity
+**Length:** 4 focused sessions (15-25 minutes each) - Total 70-85 minutes
+**Goal:** Developers will master Claude Code's advanced features through progressive, focused deep-dives into subagents, slash commands, hooks, and parallel workflow integration.
+**Core Concepts:** Progressive mastery from basic concepts to advanced parallel workflows
 
-## Agenda
+## Training Series Structure
+
+This advanced developer training has been restructured into four focused sessions for better learning outcomes:
+
+### [Dev Session 1a: Mastering Subagents](./dev-session-1a.md)
+**Length:** 15-20 minutes
+**Focus:** Subagent architecture, configuration, context management, and security best practices
+**Learning Outcome:** Create and deploy custom subagents for specialized development tasks
+
+### [Dev Session 1b: Custom Slash Commands](./dev-session-1b.md)
+**Length:** 15-20 minutes
+**Focus:** Command creation, workflow automation, tool integration, and advanced features
+**Learning Outcome:** Build streamlined development workflows with command shortcuts
+
+### [Dev Session 1c: Hooks & Automation](./dev-session-1c.md)
+**Length:** 15-20 minutes
+**Focus:** Hook events, automated workflows, security patterns, and integration strategies
+**Learning Outcome:** Implement automated development workflows that respond to Claude Code events
+
+### [Dev Session 1d: Parallel Workflow Integration](./dev-session-1d.md)
+**Length:** 20-25 minutes (capstone)
+**Focus:** Parallel execution, workflow orchestration, advanced integration patterns, performance optimization
+**Learning Outcome:** Master advanced parallel workflows combining all previous concepts
+
+## Benefits of the Modular Approach
+
+### For Trainers
+- **Flexible Delivery:** Present sessions individually or as a series
+- **Time Management:** Each session fits standard meeting blocks
+- **Focused Preparation:** Easier to prepare and deliver specific topics
+- **Progressive Depth:** Natural learning progression from basic to advanced
+
+### For Developers
+- **Digestible Content:** No information overload
+- **Practical Focus:** Each session includes hands-on exercises
+- **Just-in-Time Learning:** Can attend sessions based on immediate needs
+- **Reference Material:** Easy to revisit specific topics
+
+## Original Session Content (Archived)
+
+*The original comprehensive session content has been preserved below for reference purposes. Use the modular sessions above for actual training delivery.*
+
+---
+
+## Agenda (Original Structure)
 
 ### 1. (5 min) Introduction: Beyond Basic Claude Code
 Start by acknowledging that while basic Claude Code is powerful, the real productivity gains come from leveraging specialized subagents that handle specific development workflows.

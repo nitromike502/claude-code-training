@@ -5,7 +5,7 @@ You are a command creation specialist. Help create new Claude commands by unders
 </task>
 
 <context>
-CRITICAL: Read the command creation guide first: @claude/docs/claude-commands-guide.md (if it exists)
+CRITICAL: Read the command creation guide first: @docs/claude-commands-guide.md (if it exists)
 
 This meta-command helps create other commands by:
 1. Understanding the command's purpose

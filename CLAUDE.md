@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository contains training materials for Claude Code, specifically a comprehensive "Lunch & Learn" series designed to onboard non-technical team members. The main content is structured as a 5-part educational series covering Claude Code fundamentals, complete with an interactive presentation delivery system and comprehensive development documentation.
+This repository contains training materials for Claude Code, specifically a comprehensive "Lunch & Learn" series designed to onboard both non-technical team members and developers. The main content is structured as a 5-part educational series for non-technical users plus advanced developer training, covering Claude Code fundamentals through advanced automation features, complete with an interactive presentation delivery system and comprehensive development documentation.
 
 ## Key Files
 
-- `overview.md` - Contains the complete "Claude Code Lunch & Learn Series: From Zero to Hero" curriculum, a 5-session training program designed for non-technical staff
-- `sessions/` - Individual session documents (session-1.md through session-5.md)
+- `overview.md` - Contains the complete "Claude Code Lunch & Learn Series: From Zero to Hero" curriculum, a comprehensive training program designed for both non-technical staff and developers
+- `sessions/` - Individual session documents (session-1.md through session-5.md, plus dev-session-1.md for advanced developer topics)
 - `examples/laravel-vue-ecommerce/` - Live Laravel + Vue.js e-commerce application for training demonstrations
 - `example-projects.md` - Alternative project options for training scenarios
 - `presentation/` - Interactive presentation delivery system with Node.js server and web interface
@@ -18,13 +18,14 @@ This repository contains training materials for Claude Code, specifically a comp
 
 ## Content Structure
 
-The training series is organized into 5 progressive sessions:
+The training series is organized into 5 progressive sessions for non-technical staff, plus 1 advanced developer session:
 
 1. **Session 1**: Introduction to Claude Code and its core purpose (15 min)
-2. **Session 2**: Project initialization and setup (20 min) 
+2. **Session 2**: Project initialization and setup (20 min)
 3. **Session 3**: Documentation generation with Markdown (20 min)
 4. **Session 4**: MCP Servers and centralized analysis (15 min)
 5. **Session 5**: Sub-agents overview (@explain, @docu, @find) (20 min)
+6. **Dev Session 1**: Advanced developer topics: subagents, slash commands, and hooks (45-55 min)
 
 Each session includes:
 - Clear learning objectives

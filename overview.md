@@ -7,14 +7,15 @@ To empower non-technical staff to confidently use Claude Code for project analys
 
 ## Training Series Structure
 
-The training is organized as individual 15-20 minute sessions, each with specific learning objectives:
+The training is organized as individual 15-20 minute sessions for non-technical staff, with an additional advanced developer session. Each session has specific learning objectives:
 
 ### Session Documents
-- **[Session 1](./sessions/session-1.md)**: What is Claude Code & Why Should I Use It?
-- **[Session 2](./sessions/session-2.md)**: Pointing Claude at Your Project  
-- **[Session 3](./sessions/session-3.md)**: Creating Great Documentation with `.md` Files
-- **[Session 4](./sessions/session-4.md)**: The Next Level: What are MCP Servers?
-- **[Session 5](./sessions/session-5.md)**: Meet the Sub-Agents (Claude Code's "Modes")
+- **[Session 1](sessions/session-1.md)**: What is Claude Code & Why Should I Use It?
+- **[Session 2](sessions/session-2.md)**: Pointing Claude at Your Project
+- **[Session 3](sessions/session-3.md)**: Creating Great Documentation with `.md` Files
+- **[Session 4](sessions/session-4.md)**: The Next Level: What are MCP Servers?
+- **[Session 5](sessions/session-5.md)**: Meet the Sub-Agents (Claude Code's "Modes")
+- **[Dev Session 1](sessions/dev-session-1.md)**: Advanced Developer Topics: Subagents, Slash Commands & Hooks
 
 ## Example Project
 The training materials use a **Laravel Vue.js E-commerce application** as the primary example throughout all sessions. This provides:
@@ -30,11 +31,16 @@ The training materials use a **Laravel Vue.js E-commerce application** as the pr
 
 ## Target Audience
 
-### Primary Roles
+### Primary Roles (Sessions 1-5)
 - **Project Managers**: Understanding technical scope, timeline planning, stakeholder communication
-- **QA Testers**: Writing better bug reports, understanding system workflows, test planning  
+- **QA Testers**: Writing better bug reports, understanding system workflows, test planning
 - **Technical Writers**: Creating user documentation, API references, feature guides
 - **Product Managers**: Understanding business logic implementation, feature impact analysis
+
+### Advanced Users (Dev Session 1)
+- **Software Developers**: Custom agent creation, workflow automation, advanced Claude Code features
+- **DevOps Engineers**: CI/CD integration, automated documentation, deployment optimization
+- **Technical Leads**: Team productivity enhancement, standardizing development workflows
 
 ### Key Learning Outcomes
 By completing this training series, participants will be able to:

@@ -30,7 +30,7 @@
   "claude-code": {
     "training-session": "Dev Session 1: Advanced Claude Code Features",
     "learning-objectives": [
-      "Master Claude Code subagents (@explain, @docu, custom agents)",
+      "Master Claude Code capabilities (code analysis, custom agents, and documentation workflows)",
       "Create and use custom slash commands",
       "Implement development workflow hooks",
       "Practice parallel task execution with Claude Code"

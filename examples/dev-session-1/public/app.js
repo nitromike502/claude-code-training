@@ -50,7 +50,7 @@ const TaskFlowApp = {
                 loading.value = true;
                 error.value = null;
 
-                // Parallel API calls (will demonstrate Claude Code @explain for async patterns)
+                // Parallel API calls (will demonstrate Claude Code analysis for async patterns)
                 const [tasksResponse, projectsResponse, usersResponse] = await Promise.all([
                     fetch(`${apiBase}/tasks`),
                     fetch(`${apiBase}/projects`),

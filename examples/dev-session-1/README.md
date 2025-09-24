@@ -76,14 +76,14 @@ You should see:
 
 **Claude Code Demonstrations:**
 ```bash
-# Use @explain to understand the project architecture
-@explain "What is the overall structure of this Vue.js application?"
+# Use Claude Code to understand the project architecture
+Ask Claude Code: "What is the overall structure of this Vue.js application?"
 
 # Analyze the API design
-@explain server/db.json "How is the data structured and what relationships exist?"
+Ask Claude Code to analyze server/db.json: "How is the data structured and what relationships exist?"
 
 # Understand component patterns
-@explain public/app.js "What Vue.js patterns are used here?"
+Ask Claude Code to analyze public/app.js: "What Vue.js patterns are used here?"
 ```
 
 **Key Learning**: See how Claude Code can quickly analyze and explain complex codebases
@@ -95,15 +95,15 @@ You should see:
 
 #### TaskList Component (7 minutes)
 ```bash
-# Start component development with @explain
-@explain "What would be the best approach for a TaskList component that can filter and sort tasks?"
+# Start component development with Claude Code guidance
+Ask Claude Code: "What would be the best approach for a TaskList component that can filter and sort tasks?"
 
 # Use custom subagent for code review
 # (We'll create this during the session)
 Use the task-component-reviewer subagent to analyze this TaskList implementation
 
 # Generate documentation
-@docu components/TaskList.js "Create comprehensive component documentation"
+Use Claude Code to help generate comprehensive component documentation for TaskList.js
 ```
 
 **Build Features:**
@@ -117,7 +117,7 @@ Use the task-component-reviewer subagent to analyze this TaskList implementation
 
 ```bash
 # Design guidance
-@explain "How should TaskCard handle props and emit events to parent components?"
+Ask Claude Code: "How should TaskCard handle props and emit events to parent components?"
 
 # Styling assistance
 Use Claude Code to suggest Tailwind CSS classes for priority indicators and status badges
@@ -128,7 +128,7 @@ Use Claude Code to suggest Tailwind CSS classes for priority indicators and stat
 
 ```bash
 # Form validation patterns
-@explain "What are Vue.js best practices for form validation and API integration?"
+Ask Claude Code: "What are Vue.js best practices for form validation and API integration?"
 
 # Create validation subagent
 # (Custom subagent creation demonstration)
@@ -162,7 +162,7 @@ You are a specialist in task management application patterns...
 ---
 description: "Analyze task component architecture and suggest improvements"
 ---
-@explain components/ "Analyze all task components for architecture consistency"
+Ask Claude Code to analyze components/: "Analyze all task components for architecture consistency"
 
 Generate recommendations for:
 - Component reusability
@@ -229,10 +229,10 @@ Rich relational data perfect for demonstrating Claude Code's analysis capabiliti
 
 ## Claude Code Integration Points
 
-### Built-in Subagents
-- **@explain**: Code architecture analysis, Vue.js pattern explanations
-- **@docu**: Component documentation, API reference generation
-- **@find**: Cross-component dependency tracking
+### Claude Code Capabilities
+- **Code Analysis**: Ask Claude Code for architecture analysis and Vue.js pattern explanations
+- **Documentation Generation**: Use Claude Code to help create component documentation and API references
+- **Dependency Analysis**: Use Claude Code to help track cross-component dependencies
 
 ### Custom Subagents (Created During Session)
 - **task-validator**: Validates task management code patterns
@@ -255,8 +255,8 @@ Rich relational data perfect for demonstrating Claude Code's analysis capabiliti
 ```bash
 # Demonstrate parallel task execution
 Run these simultaneously:
-1. @explain the Vue.js architecture
-2. @docu generate API documentation
+1. Ask Claude Code to analyze the Vue.js architecture
+2. Use Claude Code to help generate API documentation
 3. Use component-reviewer on TaskList.js
 ```
 
@@ -319,10 +319,10 @@ npx live-server public --port=8080
 
 By session end, attendees should demonstrate:
 
-✅ **Subagent Mastery**
+✅ **Claude Code Mastery**
 - Created at least one custom subagent
-- Used @explain for code analysis
-- Generated documentation with @docu
+- Used Claude Code for code analysis
+- Generated documentation with Claude Code assistance
 
 ✅ **Workflow Integration**
 - Built at least one slash command

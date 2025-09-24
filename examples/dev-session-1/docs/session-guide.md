@@ -7,7 +7,7 @@
 ### Setup Checklist (5 minutes before session)
 - [ ] Clone and test TaskFlow Pro locally (`npm install && npm start`)
 - [ ] Verify both localhost:3000 and localhost:3001 are accessible
-- [ ] Test Claude Code with `@explain`, `@docu`, and Task tool
+- [ ] Test Claude Code and Task tool
 - [ ] Prepare screen sharing with both Claude Code terminal and browser
 - [ ] Have backup internet connection ready (CDN dependencies)
 
@@ -32,25 +32,25 @@
 
 **Demo 1: Project Understanding** (2 minutes)
 ```bash
-@explain "What is the overall architecture of this TaskFlow Pro project?"
+Ask Claude Code: "What is the overall architecture of this TaskFlow Pro project?"
 ```
 
 **Expected Output**: Claude analyzes Vue.js structure, json-server setup, component architecture
 
 **Presenter Notes**:
-- Highlight how @explain provides architectural insights instantly
+- Highlight how Claude Code provides architectural insights instantly
 - Point out the relational data model in server/db.json
 - Show the progressive component loading strategy
 
 **Demo 2: Data Analysis** (2 minutes)
 ```bash
-@explain server/db.json "How is this task management data structured and what relationships exist?"
+Ask Claude Code to analyze server/db.json: "How is this task management data structured and what relationships exist?"
 ```
 
 **Expected Output**: Detailed analysis of users, tasks, projects relationships
 
 **Teaching Points**:
-- Demonstrate Claude's ability to understand complex data structures
+- Demonstrate Claude Code's ability to understand complex data structures
 - Show how Claude identifies foreign key relationships
 - Highlight the realistic demo data designed for training
 
@@ -64,7 +64,7 @@
 **Script**: "Let's build our first component. Instead of starting from scratch, let's ask Claude how to approach this."
 
 ```bash
-@explain "What would be the best approach for a TaskList component in Vue 3 that can filter tasks by status and priority?"
+Ask Claude Code: "What would be the best approach for a TaskList component in Vue 3 that can filter tasks by status and priority?"
 ```
 
 **Live Coding with Claude** (4 minutes)
@@ -78,13 +78,13 @@ Open `public/components/TaskList.js` and start building:
 ```
 
 **Key Teaching Moments**:
-- Show Claude suggesting Vue 3 Composition API patterns
-- Demonstrate how @explain clarifies reactive refs vs reactive objects
-- Live code with Claude's guidance on component props and events
+- Show Claude Code suggesting Vue 3 Composition API patterns
+- Demonstrate how Claude Code clarifies reactive refs vs reactive objects
+- Live code with Claude Code's guidance on component props and events
 
 **Documentation Demo** (2 minutes)
 ```bash
-@docu components/TaskList.js "Create comprehensive Vue.js component documentation with usage examples"
+Ask Claude Code to help create comprehensive Vue.js component documentation with usage examples for TaskList.js
 ```
 
 **Show**: Automatic generation of component docs with props, events, and usage examples
@@ -133,7 +133,7 @@ Use the task-component-reviewer subagent to analyze the TaskList component we ju
 **Script**: "Let's rapidly prototype TaskCard with Claude's help."
 
 ```bash
-@explain "Design a TaskCard component that displays task information with priority indicators and user avatars"
+Ask Claude Code: "Design a TaskCard component that displays task information with priority indicators and user avatars"
 ```
 
 **Live code**: Basic TaskCard with props and styling
@@ -142,7 +142,7 @@ Use the task-component-reviewer subagent to analyze the TaskList component we ju
 **Script**: "For forms, Claude Code can help with validation patterns."
 
 ```bash
-@explain "What are Vue.js best practices for task creation forms with validation?"
+Ask Claude Code: "What are Vue.js best practices for task creation forms with validation?"
 ```
 
 **Show**: Form validation patterns and API integration guidance
@@ -161,7 +161,7 @@ Create `.claude/commands/analyze-components.md`:
 description: "Analyze all TaskFlow Pro components for architecture consistency"
 ---
 
-@explain components/ "Review all Vue.js components in this directory for:"
+Ask Claude Code to review components/: "Review all Vue.js components in this directory for:"
 
 1. **Architecture Consistency**: Do all components follow the same patterns?
 2. **Code Quality**: Are there any anti-patterns or improvements needed?
@@ -207,8 +207,8 @@ Focus on: $1
 **Script**: "The real power comes from coordinating multiple Claude Code tasks simultaneously."
 
 **Live Demo**: Execute these in parallel (use Task tool multiple times in one message):
-1. `@explain public/app.js "How does the main Vue application initialize and manage state?"`
-2. `@docu server/db.json "Create API documentation from this data structure"`
+1. `Ask Claude Code to analyze public/app.js: "How does the main Vue application initialize and manage state?"`
+2. Ask Claude Code to help create API documentation from the server/db.json data structure
 3. `Use task-component-reviewer to analyze components/ directory for overall architecture`
 
 **Teaching Points**:

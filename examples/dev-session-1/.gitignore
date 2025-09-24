@@ -95,3 +95,6 @@ loglevel=silent
 # === Optional Runtime ===
 .cache/
 .parcel-cache/
+
+# === Git Repository (for sync operations) ===
+.git/

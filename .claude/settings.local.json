@@ -37,7 +37,8 @@
       "mcp__playwright__playwright_evaluate",
       "mcp__playwright__playwright_console_logs",
       "Bash(test:*)",
-      "WebSearch"
+      "WebSearch",
+      "Read(//home/training/claude-code-subagents/**)"
     ]
   },
   "enableAllProjectMcpServers": true,

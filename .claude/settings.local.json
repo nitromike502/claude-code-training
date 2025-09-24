@@ -5,23 +5,15 @@
       "Bash(ddev status:*)",
       "Bash(ddev stop:*)",
       "Bash(ddev artisan migrate:*)",
-      "mcp__playwright__playwright_navigate",
-      "mcp__playwright__playwright_get_visible_text",
       "Bash(ddev ssh:*)",
       "Bash(ddev exec:*)",
       "Bash(ddev restart:*)",
       "Bash(ddev start-dev:*)",
-      "mcp__playwright__playwright_get_visible_html",
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "Bash(git push:*)",
       "Bash(git remote set-url:*)",
       "Bash(npm start)",
-      "mcp__playwright__browser_navigate",
-      "mcp__playwright__browser_take_screenshot",
-      "mcp__playwright__browser_click",
-      "mcp__playwright__browser_snapshot",
-      "mcp__playwright__browser_evaluate",
       "mcp__google-slides-mcp__get_presentation",
       "mcp__google-slides-mcp__batch_update_presentation",
       "Bash(ddev start:*)",
@@ -43,9 +35,5 @@
   "enabledMcpjsonServers": [
     "fetch"
   ],
-  "statusLine": {
-    "type": "command",
-    "command": "/home/meckert/.claude/status_lines/status_line_v4.py"
-  },
   "outputStyle": "Explanatory"
 }

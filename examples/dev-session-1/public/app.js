@@ -96,6 +96,78 @@ const TaskFlowApp = {
             });
         }
 
+        // --- CRUD Operations ---
+        const handleTaskCreated = async (taskData) => {
+            try {
+                // Generate new ID for demo (in real app, server would generate)
+                const newId = Math.max(...tasks.value.map(t => t.id), 0) + 1;
+                const newTask = { ...taskData, id: newId };
+
+                const response = await fetch(`${apiBase}/tasks`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(newTask)
+                });
+
+                if (response.ok) {
+                    const createdTask = await response.json();
+                    tasks.value.push(createdTask);
+                    console.log('✅ Task created successfully:', createdTask.title);
+                } else {
+                    throw new Error('Failed to create task');
+                }
+            } catch (err) {
+                console.error('❌ Error creating task:', err);
+                error.value = 'Failed to create task. Please try again.';
+            }
+        };
+
+        const handleTaskUpdated = async (taskData) => {
+            try {
+                const response = await fetch(`${apiBase}/tasks/${taskData.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(taskData)
+                });
+
+                if (response.ok) {
+                    const updatedTask = await response.json();
+                    const index = tasks.value.findIndex(t => t.id === updatedTask.id);
+                    if (index !== -1) {
+                        tasks.value[index] = updatedTask;
+                    }
+                    console.log('✅ Task updated successfully:', updatedTask.title);
+                } else {
+                    throw new Error('Failed to update task');
+                }
+            } catch (err) {
+                console.error('❌ Error updating task:', err);
+                error.value = 'Failed to update task. Please try again.';
+            }
+        };
+
+        const handleTaskDeleted = async (taskId) => {
+            try {
+                const response = await fetch(`${apiBase}/tasks/${taskId}`, {
+                    method: 'DELETE'
+                });
+
+                if (response.ok) {
+                    tasks.value = tasks.value.filter(t => t.id !== taskId);
+                    console.log('✅ Task deleted successfully');
+                } else {
+                    throw new Error('Failed to delete task');
+                }
+            } catch (err) {
+                console.error('❌ Error deleting task:', err);
+                error.value = 'Failed to delete task. Please try again.';
+            }
+        };
+
         // --- Lifecycle ---
         onMounted(() => {
             console.log('🚀 TaskFlow Pro initialized - Ready for Claude Code training!');
@@ -122,7 +194,10 @@ const TaskFlowApp = {
             fetchData,
             getUserById,
             getProjectById,
-            formatDate
+            formatDate,
+            handleTaskCreated,
+            handleTaskUpdated,
+            handleTaskDeleted
         };
     },
 
@@ -156,12 +231,11 @@ const TaskFlowApp = {
 
         <!-- Main Application Content -->
         <div v-else class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
             <!-- Dashboard Overview -->
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Team Dashboard</h2>
                 <p class="text-gray-600">
-                    Welcome to TaskFlow Pro training session!
+                    Welcome to TaskFlow Pro! A complete task management system.
                     <span class="text-blue-600 font-medium">{{ tasks.length }} tasks</span> across
                     <span class="text-green-600 font-medium">{{ projects.length }} projects</span>
                 </p>
@@ -233,49 +307,26 @@ const TaskFlowApp = {
                 </div>
             </div>
 
-            <!-- Session Instructions -->
-            <div class="bg-blue-50 border-l-4 border-blue-400 p-6 mb-8">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <i class="fas fa-info-circle text-blue-400 text-xl"></i>
-                    </div>
-                    <div class="ml-3">
-                        <h3 class="text-lg font-medium text-blue-800">
-                            🎯 Training Session: Ready to Build!
-                        </h3>
-                        <div class="mt-2 text-sm text-blue-700">
-                            <p class="mb-2">
-                                This basic dashboard shows our task data. During the session, we'll use Claude Code to:
-                            </p>
-                            <ul class="list-disc list-inside space-y-1 ml-4">
-                                <li><strong>@explain</strong> - Understand Vue.js patterns and API structure</li>
-                                <li><strong>@docu</strong> - Generate comprehensive documentation</li>
-                                <li><strong>Custom subagents</strong> - Create specialized code reviewers and validators</li>
-                                <li><strong>Build components</strong> - TaskList, TaskForm, and TaskCard with Claude's help</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Task Components Will Be Added Here During Session -->
-            <div class="space-y-8">
-                <!-- Placeholder for TaskList component -->
-                <div class="bg-white shadow rounded-lg p-6">
-                    <h3 class="text-lg font-medium text-gray-900 mb-4">
-                        📝 Task Components (To Be Built)
-                    </h3>
-                    <p class="text-gray-600">
-                        We'll create Vue.js components here during the session using Claude Code guidance.
-                    </p>
-                </div>
-            </div>
+            <!-- Task Management Component -->
+            <task-list
+                :tasks="tasks"
+                :projects="projects"
+                :users="users"
+                @task-created="handleTaskCreated"
+                @task-updated="handleTaskUpdated"
+                @task-deleted="handleTaskDeleted"
+            />
         </div>
     `
 };
 
 // Initialize Application
 const app = createApp(TaskFlowApp);
+
+// Register components globally
+app.component('TaskCard', TaskCard);
+app.component('TaskForm', TaskForm);
+app.component('TaskList', TaskList);
 
 // Global error handler
 app.config.errorHandler = (err, instance, info) => {
@@ -284,3 +335,5 @@ app.config.errorHandler = (err, instance, info) => {
 
 // Mount the application
 app.mount('#app');
+
+console.log('🎉 TaskFlow Pro fully loaded with all components!');

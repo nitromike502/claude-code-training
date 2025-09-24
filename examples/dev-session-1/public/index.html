@@ -150,12 +150,12 @@
         });
     </script>
 
-    <!-- Load Vue.js application -->
-    <script src="app.js"></script>
-
-    <!-- Load Vue.js components (will be created during session) -->
-    <script src="components/TaskList.js"></script>
-    <script src="components/TaskForm.js"></script>
+    <!-- Load Vue.js components FIRST -->
     <script src="components/TaskCard.js"></script>
+    <script src="components/TaskForm.js"></script>
+    <script src="components/TaskList.js"></script>
+
+    <!-- Load Vue.js application AFTER components are loaded -->
+    <script src="app.js"></script>
 </body>
 </html>

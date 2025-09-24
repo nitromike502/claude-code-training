@@ -79,7 +79,11 @@
       "createdBy": 1,
       "status": "completed",
       "priority": "high",
-      "tags": ["setup", "backend", "training"],
+      "tags": [
+        "setup",
+        "backend",
+        "training"
+      ],
       "createdAt": "2024-01-15T10:30:00Z",
       "updatedAt": "2024-01-15T16:45:00Z",
       "dueDate": "2024-01-16T17:00:00Z",
@@ -96,7 +100,12 @@
       "createdBy": 1,
       "status": "in_progress",
       "priority": "high",
-      "tags": ["frontend", "vue.js", "components", "training"],
+      "tags": [
+        "frontend",
+        "vue.js",
+        "components",
+        "training"
+      ],
       "createdAt": "2024-01-15T11:00:00Z",
       "updatedAt": "2024-01-23T14:20:00Z",
       "dueDate": "2024-01-24T17:00:00Z",
@@ -112,7 +121,12 @@
       "createdBy": 1,
       "status": "completed",
       "priority": "medium",
-      "tags": ["design", "ui/ux", "mockups", "accessibility"],
+      "tags": [
+        "design",
+        "ui/ux",
+        "mockups",
+        "accessibility"
+      ],
       "createdAt": "2024-01-16T09:00:00Z",
       "updatedAt": "2024-01-19T11:30:00Z",
       "dueDate": "2024-01-22T17:00:00Z",
@@ -127,13 +141,18 @@
       "projectId": 1,
       "assignedTo": 4,
       "createdBy": 1,
-      "status": "todo",
+      "status": "completed",
       "priority": "medium",
-      "tags": ["testing", "qa", "documentation"],
+      "tags": [
+        "testing",
+        "qa",
+        "documentation"
+      ],
       "createdAt": "2024-01-17T10:15:00Z",
-      "updatedAt": "2024-01-17T10:15:00Z",
+      "updatedAt": "2025-09-24T13:15:35.743Z",
       "dueDate": "2024-01-26T17:00:00Z",
-      "estimatedHours": 4
+      "estimatedHours": 4,
+      "completedAt": "2025-09-24T13:15:35.743Z"
     },
     {
       "id": 5,
@@ -144,7 +163,12 @@
       "createdBy": 1,
       "status": "todo",
       "priority": "high",
-      "tags": ["backend", "api", "crud", "validation"],
+      "tags": [
+        "backend",
+        "api",
+        "crud",
+        "validation"
+      ],
       "createdAt": "2024-01-18T08:45:00Z",
       "updatedAt": "2024-01-18T08:45:00Z",
       "dueDate": "2024-01-25T17:00:00Z",
@@ -159,7 +183,11 @@
       "createdBy": 1,
       "status": "in_progress",
       "priority": "high",
-      "tags": ["documentation", "training", "claude-code"],
+      "tags": [
+        "documentation",
+        "training",
+        "claude-code"
+      ],
       "createdAt": "2024-01-19T13:20:00Z",
       "updatedAt": "2024-01-23T15:10:00Z",
       "dueDate": "2024-01-27T17:00:00Z",
@@ -175,7 +203,12 @@
       "createdBy": 2,
       "status": "todo",
       "priority": "low",
-      "tags": ["research", "ai", "features", "planning"],
+      "tags": [
+        "research",
+        "ai",
+        "features",
+        "planning"
+      ],
       "createdAt": "2024-01-20T16:00:00Z",
       "updatedAt": "2024-01-20T16:00:00Z",
       "dueDate": "2024-02-15T17:00:00Z",
@@ -190,12 +223,31 @@
       "createdBy": 3,
       "status": "in_progress",
       "priority": "high",
-      "tags": ["mobile", "navigation", "ux", "design"],
+      "tags": [
+        "mobile",
+        "navigation",
+        "ux",
+        "design"
+      ],
       "createdAt": "2024-01-21T11:30:00Z",
       "updatedAt": "2024-01-23T09:45:00Z",
       "dueDate": "2024-01-28T17:00:00Z",
       "estimatedHours": 5,
       "actualHours": 2.1
+    },
+    {
+      "title": "Test Task",
+      "description": "sdfsd sdf sdf sdf sdf",
+      "projectId": 1,
+      "assignedTo": 4,
+      "priority": "medium",
+      "status": "todo",
+      "dueDate": null,
+      "estimatedHours": null,
+      "updatedAt": "2025-09-24T13:17:28.974Z",
+      "id": 9,
+      "createdAt": "2025-09-24T13:17:05.892Z",
+      "createdBy": 1
     }
   ],
   "comments": [
